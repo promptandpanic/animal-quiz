@@ -131,6 +131,19 @@
       </div>
     </div>
 
+    <!-- Microphone Option -->
+    <div class="settings-section">
+      <div class="section-label">Microphone Mode</div>
+      <div class="mic-row" role="group" aria-label="Microphone selection">
+        <button class="mic-btn selected" id="mic-disabled" data-enabled="false">
+          <span class="mic-icon">🔇</span> Off
+        </button>
+        <button class="mic-btn" id="mic-enabled" data-enabled="true">
+          <span class="mic-icon">🎙️</span> On (Speak Answers)
+        </button>
+      </div>
+    </div>
+
     <!-- Best Score -->
     <div id="best-banner" class="best-banner" style="display:none">
       <span>🥇 Personal best:</span>
@@ -179,6 +192,10 @@
     </div>
 
     <div class="hud-badge" id="hud-badge">Explorer</div>
+
+    <div class="hud-mic-status" id="hud-mic-status" style="display:none" aria-label="Microphone status">
+      <span class="mic-pulse">🎙️</span> <span id="hud-mic-text" class="mic-status-text">Listening...</span>
+    </div>
 
     <button id="btn-end-early" class="btn-end-early" aria-label="End Quiz early">End Quiz 🛑</button>
 
@@ -271,6 +288,26 @@
     <div class="breakdown-card">
       <div class="breakdown-hd">Category Breakdown</div>
       <div id="breakdown-rows"></div>
+    </div>
+
+    <!-- Spoken answers verification -->
+    <div class="breakdown-card" id="results-table-card" style="display:none">
+      <div class="breakdown-hd">Answer Review</div>
+      <div class="results-table-container">
+        <table class="results-table">
+          <thead>
+            <tr>
+              <th>Animal</th>
+              <th>Correct Name</th>
+              <th>Spoken Answer</th>
+              <th>Result</th>
+            </tr>
+          </thead>
+          <tbody id="results-table-body">
+            <!-- Dynamically populated -->
+          </tbody>
+        </table>
+      </div>
     </div>
 
 

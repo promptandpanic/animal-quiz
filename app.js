@@ -12,11 +12,11 @@ window.onerror = function(msg, url, line, col, error) {
 const ANIMALS = [
   {id:107, name:"Poison Dart Frog         ", category:"Amphibian ", image:"images/107.jpg", wiki:"Dyeing poison dart frog"},
   {id:108, name:"Axolotl                  ", category:"Amphibian ", image:"images/108.jpg", wiki:"Axolotl"},
-  {id:109, name:"Fire Salamander          ", category:"Amphibian ", image:"images/109.jpg", wiki:"Fire salamander"},
-  {id:110, name:"American Bullfrog        ", category:"Amphibian ", image:"images/110.jpg", wiki:"American bullfrog"},
+  {id:109, name:"Salamander               ", category:"Amphibian ", image:"images/109.jpg", wiki:"Fire salamander"},
+  {id:110, name:"Red-eyed Tree Frog       ", category:"Amphibian ", image:"images/110.jpg", wiki:"Agalychnis callidryas"},
   {id:111, name:"Toad                     ", category:"Amphibian ", image:"images/111.jpg", wiki:"Common toad"},
-  {id:112, name:"Newt                     ", category:"Amphibian ", image:"images/112.jpg", wiki:"Smooth newt"},
-  {id:113, name:"Tiger Salamander         ", category:"Amphibian ", image:"images/113.jpg", wiki:"Tiger salamander"},
+  {id:112, name:"Jackal                   ", category:"Mammal    ", image:"images/112.jpg", wiki:"Golden jackal"},
+  {id:113, name:"Wildebeest               ", category:"Mammal    ", image:"images/113.jpg", wiki:"Wildebeest"},
   {id:66 , name:"Bald Eagle               ", category:"Bird      ", image:"images/066.jpg", wiki:"Bald eagle"},
   {id:67 , name:"Snowy Owl                ", category:"Bird      ", image:"images/067.jpg", wiki:"Snowy owl"},
   {id:68 , name:"Barn Owl                 ", category:"Bird      ", image:"images/068.jpg", wiki:"Barn owl"},
@@ -55,7 +55,7 @@ const ANIMALS = [
   {id:126, name:"Monarch Butterfly        ", category:"Insect    ", image:"images/126.jpg", wiki:"Monarch butterfly"},
   {id:127, name:"Honeybee                 ", category:"Insect    ", image:"images/127.jpg", wiki:"Honey bee"},
   {id:128, name:"Ladybug                  ", category:"Insect    ", image:"images/128.jpg", wiki:"Coccinellidae"},
-  {id:129, name:"Praying Mantis           ", category:"Insect    ", image:"images/129.jpg", wiki:"European mantis"},
+  {id:129, name:"Rabbit                   ", category:"Mammal    ", image:"images/129.jpg", wiki:"Rabbit"},
   {id:130, name:"Tarantula                ", category:"Insect    ", image:"images/130.jpg", wiki:"Tarantula"},
   {id:132, name:"Grasshopper              ", category:"Insect    ", image:"images/132.jpg", wiki:"Grasshopper"},
   {id:133, name:"Dragonfly                ", category:"Insect    ", image:"images/133.jpg", wiki:"Dragonfly"},
@@ -73,7 +73,7 @@ const ANIMALS = [
   {id:12 , name:"Brown Bear               ", category:"Mammal    ", image:"images/012.jpg", wiki:"Brown bear"},
   {id:13 , name:"Polar Bear               ", category:"Mammal    ", image:"images/013.jpg", wiki:"Polar bear"},
   {id:14 , name:"Giant Panda              ", category:"Mammal    ", image:"images/014.jpg", wiki:"Giant panda"},
-  {id:15 , name:"Sloth Bear               ", category:"Mammal    ", image:"images/015.jpg", wiki:"Sloth bear"},
+  {id:15 , name:"Black Panther            ", category:"Mammal    ", image:"images/015.jpg", wiki:"Black panther"},
   {id:16 , name:"African Elephant         ", category:"Mammal    ", image:"images/016.jpg", wiki:"African bush elephant"},
   {id:17 , name:"Asian Elephant           ", category:"Mammal    ", image:"images/017.jpg", wiki:"Asian elephant"},
   {id:18 , name:"Rhinoceros               ", category:"Mammal    ", image:"images/018.jpg", wiki:"Rhinoceros"},
@@ -160,8 +160,8 @@ const ANIMALS = [
   {id:41 , name:"Dolphin                  ", category:"Marine    ", image:"images/041.jpg", wiki:"Common bottlenose dolphin"},
   {id:42 , name:"Walrus                   ", category:"Marine    ", image:"images/042.jpg", wiki:"Walrus"},
   {id:43 , name:"Sea Otter                ", category:"Marine    ", image:"images/043.jpg", wiki:"Sea otter"},
-  {id:114, name:"Great White Shark        ", category:"Marine    ", image:"images/114.jpg", wiki:"Great white shark"},
-  {id:115, name:"Whale Shark              ", category:"Marine    ", image:"images/115.jpg", wiki:"Whale shark"},
+  {id:114, name:"Shark                    ", category:"Marine    ", image:"images/114.jpg", wiki:"Great white shark"},
+  {id:115, name:"Hamster                  ", category:"Mammal    ", image:"images/115.jpg", wiki:"Hamster"},
   {id:116, name:"Hammerhead Shark         ", category:"Marine    ", image:"images/116.jpg", wiki:"Great hammerhead"},
   {id:117, name:"Manta Ray                ", category:"Marine    ", image:"images/117.jpg", wiki:"Giant oceanic manta ray"},
   {id:118, name:"Octopus                  ", category:"Marine    ", image:"images/118.jpg", wiki:"Giant Pacific octopus"},
@@ -169,7 +169,7 @@ const ANIMALS = [
   {id:120, name:"Clownfish                ", category:"Marine    ", image:"images/120.jpg", wiki:"Clownfish"},
   {id:121, name:"Seahorse                 ", category:"Marine    ", image:"images/121.jpg", wiki:"Common seahorse"},
   {id:122, name:"Lionfish                 ", category:"Marine    ", image:"images/122.jpg", wiki:"Red lionfish"},
-  {id:123, name:"Moray Eel                ", category:"Marine    ", image:"images/123.jpg", wiki:"Giant moray"},
+  {id:123, name:"Crow                     ", category:"Bird      ", image:"images/123.jpg", wiki:"Crow"},
   {id:124, name:"Starfish                 ", category:"Marine    ", image:"images/124.jpg", wiki:"Starfish"},
   {id:125, name:"Crab                     ", category:"Marine    ", image:"images/125.jpg", wiki:"Red king crab"},
   {id:174, name:"Seal                     ", category:"Marine    ", image:"images/174.jpg", wiki:"Harbor seal"},
@@ -187,15 +187,15 @@ const ANIMALS = [
   {id:99 , name:"Gila Monster             ", category:"Reptile   ", image:"images/099.jpg", wiki:"Gila monster"},
   {id:100, name:"Sea Turtle               ", category:"Reptile   ", image:"images/100.jpg", wiki:"Green sea turtle"},
   {id:101, name:"Galápagos Tortoise       ", category:"Reptile   ", image:"images/101.jpg", wiki:"Galápagos tortoise"},
-  {id:102, name:"Boa Constrictor          ", category:"Reptile   ", image:"images/102.jpg", wiki:"Boa constrictor"},
+  {id:102, name:"Cardinal                 ", category:"Bird      ", image:"images/102.jpg", wiki:"Northern cardinal"},
   {id:103, name:"Gecko                    ", category:"Reptile   ", image:"images/103.jpg", wiki:"Tokay gecko"},
   {id:104, name:"Box Turtle               ", category:"Reptile   ", image:"images/104.jpg", wiki:"Common box turtle"},
   {id:105, name:"Python                   ", category:"Reptile   ", image:"images/105.jpg", wiki:"Ball python"},
   {id:173, name:"Tuatara                  ", category:"Reptile   ", image:"images/173.jpg", wiki:"Tuatara"},
-  {id:299, name:"Bearded Dragon           ", category:"Reptile   ", image:"images/299.jpg", wiki:"Eastern bearded dragon"},
+  {id:299, name:"Caiman                   ", category:"Reptile   ", image:"images/299.jpg", wiki:"Caiman"},
   {id:301, name:"Wallaby                  ", category:"Mammal    ", image:"images/301.jpg", wiki:"Wallaby"},
   {id:302, name:"Capuchin Monkey          ", category:"Mammal    ", image:"images/302.jpg", wiki:"Capuchin monkey"},
-  {id:303, name:"Emperor Tamarin          ", category:"Mammal    ", image:"images/303.jpg", wiki:"Emperor tamarin"},
+  {id:303, name:"Tamarin Monkey           ", category:"Mammal    ", image:"images/303.jpg", wiki:"Emperor tamarin"},
   {id:304, name:"Bobcat                   ", category:"Mammal    ", image:"images/304.jpg", wiki:"Bobcat"},
   {id:305, name:"Ferret                   ", category:"Mammal    ", image:"images/305.jpg", wiki:"Ferret"},
   {id:306, name:"Binturong                ", category:"Mammal    ", image:"images/306.jpg", wiki:"Binturong"},
@@ -203,13 +203,13 @@ const ANIMALS = [
   {id:308, name:"Hawk                     ", category:"Bird      ", image:"images/308.jpg", wiki:"Hawk"},
   {id:309, name:"Heron                    ", category:"Bird      ", image:"images/309.jpg", wiki:"Heron"},
   {id:310, name:"Osprey                   ", category:"Bird      ", image:"images/310.jpg", wiki:"Osprey"},
-  {id:311, name:"Frilled Lizard           ", category:"Reptile   ", image:"images/311.jpg", wiki:"Frill-necked lizard"},
+  {id:311, name:"Sidewinder Snake         ", category:"Reptile   ", image:"images/311.jpg", wiki:"Crotalus cerastes"},
   {id:312, name:"Monitor Lizard           ", category:"Reptile   ", image:"images/312.jpg", wiki:"Monitor lizard"},
   {id:313, name:"Anaconda                 ", category:"Reptile   ", image:"images/313.jpg", wiki:"Anaconda"},
   {id:314, name:"Stingray                 ", category:"Marine    ", image:"images/314.jpg", wiki:"Stingray"},
-  {id:315, name:"Tiger Shark              ", category:"Marine    ", image:"images/315.jpg", wiki:"Tiger shark"},
+  {id:315, name:"Guinea Pig               ", category:"Mammal    ", image:"images/315.jpg", wiki:"Guinea pig"},
   {id:316, name:"Lobster                  ", category:"Marine    ", image:"images/316.jpg", wiki:"Lobster"},
-  {id:317, name:"Cuttlefish               ", category:"Marine    ", image:"images/317.jpg", wiki:"Cuttlefish"},
+  {id:317, name:"Firefly                  ", category:"Insect    ", image:"images/317.jpg", wiki:"Firefly"},
 ];
 
 /* ─────────────────────────────────────────
@@ -221,8 +221,10 @@ const S = {
   // Settings
   mode: 'explorer',   // default to explorer
   duration: 60,       // seconds
+  micEnabled: false,
   // Quiz runtime
   queue: [], idx: 0, seen: 0, log: [],
+  spokenAnswers: [],
   remaining: 0, timerId: null, isRunning: false,
   activeImg: 'a',     // 'a' | 'b'  — which <img> is currently showing
   // Records
@@ -333,6 +335,15 @@ function initSettings() {
     });
   });
 
+  // Microphone toggle
+  document.querySelectorAll('.mic-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      document.querySelectorAll('.mic-btn').forEach(b => b.classList.remove('selected'));
+      btn.classList.add('selected');
+      S.micEnabled = btn.dataset.enabled === 'true';
+    });
+  });
+
   document.getElementById('btn-back').addEventListener('click', () => showScreen('screen-profile'));
   // btn-launch is wired to doCountdown in DOMContentLoaded
 }
@@ -369,6 +380,83 @@ function fmtDur(sec) {
 }
 
 /* ─────────────────────────────────────────
+   SPEECH RECOGNITION (MIC MODE)
+───────────────────────────────────────── */
+let recognition = null;
+let currentRecognizedText = '';
+let recognitionIdx = null;
+
+function initSpeechRecognition() {
+  const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+  if (!SpeechRecognition) {
+    console.warn("SpeechRecognition not supported in this browser.");
+    return;
+  }
+  recognition = new SpeechRecognition();
+  recognition.continuous = false;
+  recognition.interimResults = false;
+  recognition.lang = 'en-US';
+
+  recognition.onstart = () => {
+    const statusEl = document.getElementById('hud-mic-status');
+    const textEl = document.getElementById('hud-mic-text');
+    if (statusEl) statusEl.style.display = 'flex';
+    if (textEl) textEl.textContent = 'Listening...';
+    currentRecognizedText = '';
+  };
+
+  recognition.onresult = (event) => {
+    const transcript = event.results[0][0].transcript;
+    currentRecognizedText = transcript;
+    const textEl = document.getElementById('hud-mic-text');
+    if (textEl) textEl.textContent = `"${transcript}"`;
+    if (recognitionIdx !== null) {
+      S.spokenAnswers[recognitionIdx] = transcript;
+    }
+  };
+
+  recognition.onerror = (event) => {
+    console.warn("Speech Recognition Error:", event.error);
+    const textEl = document.getElementById('hud-mic-text');
+    if (textEl && event.error !== 'no-speech') {
+      textEl.textContent = `Error: ${event.error}`;
+    }
+  };
+
+  recognition.onend = () => {
+    // Keep showing result, don't clear UI
+  };
+}
+
+function startListening(idx) {
+  if (!recognition) initSpeechRecognition();
+  if (!recognition) return;
+
+  try {
+    recognition.stop();
+  } catch(e) {}
+
+  recognitionIdx = idx;
+  currentRecognizedText = '';
+  
+  try {
+    recognition.start();
+  } catch(e) {
+    console.error("Failed to start SpeechRecognition:", e);
+  }
+}
+
+function stopListening() {
+  if (recognition) {
+    try {
+      recognition.stop();
+    } catch(e) {}
+  }
+  const statusEl = document.getElementById('hud-mic-status');
+  if (statusEl) statusEl.style.display = 'none';
+}
+
+/* ─────────────────────────────────────────
    COUNTDOWN  →  QUIZ
 ───────────────────────────────────────── */
 function startCountdown() {
@@ -398,14 +486,68 @@ function startCountdown() {
 ───────────────────────────────────────── */
 
 function buildQueue() {
-  const pool = ANIMALS;
   const seed = Math.floor(Date.now() / 1000);
-  const shuffled = seededShuffle(pool, seed);
-  // Repeat to fill any duration
-  let q = [];
-  if (shuffled.length > 0) {
-    while (q.length < 5000) {
-      q = q.concat(shuffled);
+  const rng = mulberry32(seed);
+
+  // Group animals by category
+  const groups = {
+    Mammal: [],
+    Bird: [],
+    Reptile: [],
+    Amphibian: [],
+    Marine: [],
+    Insect: []
+  };
+  for (const a of ANIMALS) {
+    const cat = a.category.trim();
+    if (groups[cat]) {
+      groups[cat].push(a);
+    }
+  }
+
+  // Shuffle each group
+  for (const cat in groups) {
+    groups[cat] = seededShuffle(groups[cat], seed);
+  }
+
+  // Indices for drawing from each group
+  const idxs = { Mammal: 0, Bird: 0, Reptile: 0, Amphibian: 0, Marine: 0, Insect: 0 };
+
+  const draw = (cat) => {
+    const arr = groups[cat];
+    if (!arr || arr.length === 0) return null;
+    const item = arr[idxs[cat]];
+    idxs[cat] = (idxs[cat] + 1) % arr.length;
+    return item;
+  };
+
+  const q = [];
+  while (q.length < 5000) {
+    const r = rng() * 100;
+    let chosenCat = 'Mammal';
+    if (r < 75) {
+      chosenCat = 'Mammal';
+    } else if (r < 90) {
+      chosenCat = 'Bird';
+    } else if (r < 95) {
+      chosenCat = 'Reptile';
+    } else if (r < 98) {
+      chosenCat = 'Amphibian';
+    } else {
+      chosenCat = rng() < 0.5 ? 'Marine' : 'Insect';
+    }
+
+    let item = draw(chosenCat);
+    if (!item) {
+      for (const cat of ['Mammal', 'Bird', 'Reptile', 'Amphibian', 'Marine', 'Insect']) {
+        item = draw(cat);
+        if (item) break;
+      }
+    }
+    if (item) {
+      q.push(item);
+    } else {
+      break;
     }
   }
   return q;
@@ -417,6 +559,7 @@ function startQuiz() {
   S.idx  = 0;
   S.seen = 0;
   S.log  = [];
+  S.spokenAnswers = [];
   S.remaining = S.duration;
   S.isRunning = true;
   S.activeImg = 'a';
@@ -471,6 +614,12 @@ function setHudBadge() {
 function loadAnimal(idx) {
   const animal = S.queue[idx];
   if (!animal) return;
+
+  if (S.micEnabled) {
+    startListening(idx);
+  } else {
+    stopListening();
+  }
 
   // Set category badge
   const cat = document.getElementById('cat-badge');
@@ -562,6 +711,9 @@ function categoryEmoji(cat) {
 
 function advance() {
   if (!S.isRunning) return;
+  if (S.micEnabled) {
+    stopListening();
+  }
   const animal = S.queue[S.idx];
   if (animal) S.log.push(animal);
   S.seen++;
@@ -614,6 +766,9 @@ function updateTimer() {
 function endQuiz() {
   S.isRunning = false;
   if (S.timerId) { clearInterval(S.timerId); S.timerId = null; }
+  if (S.micEnabled) {
+    stopListening();
+  }
 
   // Detach event handlers
   const arena = document.getElementById('quiz-arena');
@@ -649,6 +804,7 @@ function buildResults() {
   document.getElementById('ms-dur').textContent        = fmtDur(dur);
 
   renderBreakdown();
+  renderResultsTable();
 
   showScreen('screen-results');
   if (count >= 10) launchConfetti();
@@ -870,6 +1026,261 @@ function doCountdown() {
     else setTimeout(doStartQuiz, 500);
   };
   tick();
+}
+
+/* ─────────────────────────────────────────
+   RESULTS TABLE COMPARISON LOGIC
+───────────────────────────────────────── */
+const ACCEPTED_NAMES = {
+  // Mammals
+  "Lion": ["lion", "lions"],
+  "Tiger": ["tiger", "tigers"],
+  "Cheetah": ["cheetah", "cheetahs"],
+  "Jaguar": ["jaguar", "jaguars"],
+  "Leopard": ["leopard", "leopards"],
+  "Snow Leopard": ["snow leopard", "leopard", "snow leopards"],
+  "Cougar": ["cougar", "cougars", "puma", "mountain lion"],
+  "Gray Wolf": ["gray wolf", "grey wolf", "wolf", "wolves"],
+  "Red Fox": ["red fox", "fox", "foxes"],
+  "Arctic Fox": ["arctic fox", "fox", "foxes"],
+  "Fennec Fox": ["fennec fox", "fox", "foxes"],
+  "Brown Bear": ["brown bear", "bear", "bears"],
+  "Polar Bear": ["polar bear", "bear", "bears"],
+  "Giant Panda": ["giant panda", "panda", "pandas"],
+  "Black Panther": ["black panther", "panther", "panthers"],
+  "African Elephant": ["african elephant", "elephant", "elephants"],
+  "Asian Elephant": ["asian elephant", "elephant", "elephants"],
+  "Rhinoceros": ["rhinoceros", "rhino", "rhinos"],
+  "Hippopotamus": ["hippopotamus", "hippo", "hippos"],
+  "Giraffe": ["giraffe", "giraffes"],
+  "Zebra": ["zebra", "zebras"],
+  "Chimpanzee": ["chimpanzee", "chimp", "chimps"],
+  "Gorilla": ["gorilla", "gorillas"],
+  "Orangutan": ["orangutan", "orangutans"],
+  "Ring-tailed Lemur": ["ring tailed lemur", "ring-tailed lemur", "lemur", "lemurs"],
+  "Moose": ["moose"],
+  "Reindeer": ["reindeer"],
+  "American Bison": ["american bison", "bison", "bisons", "buffalo", "buffalos"],
+  "Kangaroo": ["kangaroo", "kangaroos"],
+  "Red Kangaroo": ["red kangaroo", "kangaroo", "kangaroos"],
+  "Tree Kangaroo": ["tree kangaroo", "kangaroo", "kangaroos"],
+  "Koala": ["koala", "koalas", "koala bear"],
+  "Platypus": ["platypus", "duck-billed platypus"],
+  "Capybara": ["capybara", "capybaras"],
+  "Sloth": ["sloth", "sloths"],
+  "Anteater": ["anteater", "anteaters"],
+  "Meerkat": ["meerkat", "meerkats"],
+  "Honey Badger": ["honey badger", "badger", "badgers"],
+  "Bactrian Camel": ["bactrian camel", "bacterian camel", "camel", "camels"],
+  "Llama": ["llama", "llamas"],
+  "Alpaca": ["alpaca", "alpacas"],
+  "Red Panda": ["red panda", "panda", "pandas"],
+  "Beaver": ["beaver", "beavers"],
+  "Hedgehog": ["hedgehog", "hedgehogs"],
+  "Squirrel": ["squirrel", "squirrels"],
+  "Chipmunk": ["chipmunk", "chipmunks"],
+  "Raccoon": ["raccoon", "raccoons"],
+  "Skunk": ["skunk", "skunks"],
+  "Yak": ["yak", "yaks"],
+  "Otter": ["otter", "otters"],
+  "Echidna": ["echidna", "echidnas"],
+  "Wombat": ["wombat", "wombats"],
+  "Tasmanian Devil": ["tasmanian devil", "devil", "devils"],
+  "Opossum": ["opossum", "opossums", "possum", "possums"],
+  "Mongoose": ["mongoose"],
+  "Hyena": ["hyena", "hyenas"],
+  "Howler Monkey": ["howler monkey", "monkey", "monkeys"],
+  "Spider Monkey": ["spider monkey", "monkey", "monkeys"],
+  "Gibbon": ["gibbon", "gibbons"],
+  "Baboon": ["baboon", "baboons"],
+  "Deer": ["deer"],
+  "Antelope": ["antelope", "antelopes"],
+  "Mandrill": ["mandrill", "mandrills"],
+  "Pangolin": ["pangolin", "pangolins"],
+  "Okapi": ["okapi", "okapis"],
+  "Saiga Antelope": ["saiga antelope", "antelope", "saiga"],
+  "Fossa": ["fossa"],
+  "Aye-aye": ["aye aye", "aye-aye"],
+  "Numbat": ["numbat"],
+  "Quokka": ["quokka", "quokkas"],
+  "Tarsier": ["tarsier", "tarsiers"],
+  "Warthog": ["warthog", "warthogs"],
+  "Wild Boar": ["wild boar", "boar", "boars", "pig", "pigs"],
+  "Aardvark": ["aardvark", "aardvarks"],
+  "Armadillo": ["armadillo", "armadillos"],
+  "Porcupine": ["porcupine", "porcupines"],
+  "Caracal": ["caracal", "caracals"],
+  "Lynx": ["lynx"],
+  "Serval": ["serval", "servals"],
+  "Coyote": ["coyote", "coyotes"],
+  "Wolverine": ["wolverine", "wolverines"],
+  "Sifaka": ["sifaka"],
+  "Markhor": ["markhor"],
+  "Takin": ["takin"],
+  "Kinkajou": ["kinkajou"],
+  "Ocelot": ["ocelot", "ocelots"],
+  "Tapir": ["tapir", "tapirs"],
+  "Ibex": ["ibex"],
+  "Dromedary Camel": ["dromedary camel", "dromedary", "camel", "camels"],
+  "Chinchilla": ["chinchilla", "chinchillas"],
+  "Aardwolf": ["aardwolf"],
+  "African Wild Dog": ["african wild dog", "wild dog", "dog", "dogs"],
+  "Nilgai": ["nilgai"],
+  "Gazelle": ["gazelle", "gazelles"],
+  "Red Deer": ["red deer", "deer"],
+  "Elk": ["elk", "elks"],
+  "Wallaby": ["wallaby", "wallabies"],
+  "Capuchin Monkey": ["capuchin monkey", "monkey", "monkeys"],
+  "Tamarin Monkey": ["tamarin monkey", "tamarin", "monkey", "monkeys"],
+  "Bobcat": ["bobcat", "bobcats"],
+  "Ferret": ["ferret", "ferrets"],
+  "Binturong": ["binturong"],
+  "Jackal": ["jackal", "golden jackal", "jackals"],
+  "Wildebeest": ["wildebeest", "wildebeests", "gnu", "gnus"],
+  "Rabbit": ["rabbit", "rabbits", "bunny", "bunnies"],
+  "Hamster": ["hamster", "hamsters"],
+  "Guinea Pig": ["guinea pig", "guinea pigs"],
+
+  // Birds
+  "Bald Eagle": ["bald eagle", "eagle", "eagles"],
+  "Golden Eagle": ["golden eagle", "eagle", "eagles"],
+  "Snowy Owl": ["snowy owl", "owl", "owls"],
+  "Barn Owl": ["barn owl", "owl", "owls"],
+  "Flamingo": ["flamingo", "flamingos", "flamingoes"],
+  "Peacock": ["peacock", "peacocks", "peafowl"],
+  "Toucan": ["toucan", "toucans"],
+  "Scarlet Macaw": ["scarlet macaw", "macaw", "macaws"],
+  "Penguin": ["penguin", "penguins"],
+  "Ostrich": ["ostrich", "ostriches"],
+  "Emu": ["emu", "emus"],
+  "Kiwi": ["kiwi", "kiwis"],
+  "Kingfisher": ["kingfisher", "kingfishers"],
+  "Pelican": ["pelican", "pelicans"],
+  "Hummingbird": ["hummingbird", "hummingbirds"],
+  "Swan": ["swan", "swans"],
+  "Duck": ["duck", "ducks"],
+  "Goose": ["goose", "geese"],
+  "Rooster": ["rooster", "roosters", "chicken", "chickens", "hen", "hens"],
+  "Turkey": ["turkey", "turkeys"],
+  "Seagull": ["seagull", "seagulls", "gull", "gulls"],
+  "Falcon": ["falcon", "falcons", "peregrine"],
+  "Parrot": ["parrot", "parrots"],
+  "Puffin": ["puffin", "puffins"],
+  "Woodpecker": ["woodpecker", "woodpeckers"],
+  "Pigeon": ["pigeon", "pigeons", "dove", "doves"],
+  "Cassowary": ["cassowary", "cassowaries"],
+  "Shoebill": ["shoebill", "shoebill stork"],
+  "Hornbill": ["hornbill", "hornbills"],
+  "Albatross": ["albatross", "albatrosses"],
+  "Stork": ["stork", "storks"],
+  "Spoonbill": ["spoonbill", "spoonbills"],
+  "Vulture": ["vulture", "vultures"],
+  "Quail": ["quail", "quails"],
+  "Secretary Bird": ["secretary bird"],
+  "Quetzal": ["quetzal", "quetzals"],
+  "Hawk": ["hawk", "hawks"],
+  "Heron": ["heron", "herons"],
+  "Osprey": ["osprey", "ospreys"],
+  "Crow": ["crow", "crows", "raven", "ravens"],
+  "Cardinal": ["cardinal", "cardinals", "red bird"],
+
+  // Reptiles
+  "Komodo Dragon": ["komodo dragon", "komodo", "dragon", "lizard"],
+  "Crocodile": ["crocodile", "crocodiles", "croc", "crocs"],
+  "Alligator": ["alligator", "alligators", "gator", "gators"],
+  "Gharial": ["gharial", "gharials"],
+  "Iguana": ["iguana", "iguanas"],
+  "Chameleon": ["chameleon", "chameleons"],
+  "King Cobra": ["king cobra", "cobra", "cobras", "snake", "snakes"],
+  "Rattlesnake": ["rattlesnake", "snake", "snakes"],
+  "Gila Monster": ["gila monster", "lizard"],
+  "Sea Turtle": ["sea turtle", "turtle", "turtles"],
+  "Galápagos Tortoise": ["galapagos tortoise", "tortoise", "tortoises", "turtle"],
+  "Gecko": ["gecko", "geckos"],
+  "Box Turtle": ["box turtle", "turtle", "turtles"],
+  "Python": ["python", "pythons", "snake", "snakes"],
+  "Tuatara": ["tuatara"],
+  "Monitor Lizard": ["monitor lizard", "monitor", "lizard"],
+  "Anaconda": ["anaconda", "anacondas", "snake", "snakes"],
+  "Caiman": ["caiman", "caimans", "alligator", "alligators"],
+  "Sidewinder Snake": ["sidewinder snake", "sidewinder", "sidewinders", "snake", "snakes"],
+
+  // Amphibians
+  "Poison Dart Frog": ["poison dart frog", "dart frog", "frog", "frogs"],
+  "Axolotl": ["axolotl", "axolotls"],
+  "Salamander": ["salamander", "salamanders"],
+  "Red-eyed Tree Frog": ["red eyed tree frog", "red-eyed tree frog", "tree frog", "frog", "frogs"],
+  "Toad": ["toad", "toads", "frog", "frogs"],
+
+  // Marine
+  "Whale": ["whale", "whales"],
+  "Dolphin": ["dolphin", "dolphins"],
+  "Walrus": ["walrus", "walruses"],
+  "Sea Otter": ["sea otter", "otter", "otters"],
+  "Shark": ["shark", "sharks"],
+  "Hammerhead Shark": ["hammerhead shark", "hammerhead", "shark", "sharks"],
+  "Manta Ray": ["manta ray", "manta", "ray", "rays"],
+  "Octopus": ["octopus", "octopuses", "octopi"],
+  "Giant Squid": ["giant squid", "squid", "squids"],
+  "Clownfish": ["clownfish"],
+  "Seahorse": ["seahorse", "seahorses"],
+  "Lionfish": ["lionfish"],
+  "Starfish": ["starfish", "sea star", "sea stars"],
+  "Crab": ["crab", "crabs"],
+  "Seal": ["seal", "seals"],
+  "Manatee": ["manatee", "manatees"],
+  "Jellyfish": ["jellyfish"],
+  "Narwhal": ["narwhal", "narwhals"],
+  "Stingray": ["stingray", "stingrays", "ray", "rays"],
+  "Lobster": ["lobster", "lobsters"],
+
+  // Insects
+  "Monarch Butterfly": ["monarch butterfly", "butterfly", "butterflies"],
+  "Honeybee": ["honeybee", "honey bee", "bee", "bees"],
+  "Ladybug": ["ladybug", "ladybugs", "ladybird", "ladybirds"],
+  "Tarantula": ["tarantula", "tarantulas", "spider", "spiders"],
+  "Grasshopper": ["grasshopper", "grasshoppers"],
+  "Dragonfly": ["dragonfly", "dragonflies"],
+  "Firefly": ["firefly", "fireflies", "lightning bug", "lightning bugs"]
+};
+
+function renderResultsTable() {
+  const tableCard = document.getElementById('results-table-card');
+  const tbody = document.getElementById('results-table-body');
+  
+  if (!S.micEnabled) {
+    if (tableCard) tableCard.style.display = 'none';
+    return;
+  }
+  
+  if (tableCard) tableCard.style.display = 'block';
+  tbody.innerHTML = '';
+  
+  S.log.forEach((animal, i) => {
+    const spoken = S.spokenAnswers[i] || '';
+    const spokenText = spoken.trim();
+    const correctName = animal.name.trim();
+    
+    const accepted = ACCEPTED_NAMES[correctName] || [correctName.toLowerCase()];
+    const isCorrect = spokenText && accepted.some(a => {
+      const normSpoken = spokenText.toLowerCase().replace(/[^a-z0-9 ]/g, '').trim();
+      const normAccepted = a.toLowerCase().replace(/[^a-z0-9 ]/g, '').trim();
+      return normSpoken === normAccepted || normSpoken.includes(normAccepted) || normAccepted.includes(normSpoken);
+    });
+    
+    const row = document.createElement('tr');
+    row.innerHTML = `
+      <td><img src="${animal.image}" class="results-table-img" alt="${correctName}"></td>
+      <td><strong>${correctName}</strong></td>
+      <td class="cell-spoken ${spokenText ? '' : 'empty'}">${spokenText || '(No speech detected)'}</td>
+      <td>
+        <span class="status-badge ${isCorrect ? 'status-correct' : 'status-wrong'}">
+          ${isCorrect ? '✅ Correct' : '❌ Wrong'}
+        </span>
+      </td>
+    `;
+    tbody.appendChild(row);
+  });
 }
 
 /* ─────────────────────────────────────────
