@@ -717,8 +717,14 @@ function advance() {
   const animal = S.queue[S.idx];
   if (animal) S.log.push(animal);
   S.seen++;
-  S.idx = (S.idx + 1) % S.queue.length;
   updateCount();
+  
+  if (S.seen >= ANIMALS.length) {
+    endQuiz();
+    return;
+  }
+  
+  S.idx = (S.idx + 1) % S.queue.length;
   // Hide tap hint after first tap
   document.getElementById('tap-hint').classList.add('gone');
   loadAnimal(S.idx);
@@ -726,7 +732,7 @@ function advance() {
 }
 
 function updateCount() {
-  document.getElementById('hud-count-n').textContent = S.seen;
+  document.getElementById('hud-count-n').textContent = `${S.seen}/${ANIMALS.length}`;
 }
 
 /* ─────────────────────────────────────────
