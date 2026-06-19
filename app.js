@@ -1,359 +1,198 @@
 'use strict';
+
+window.onerror = function(msg, url, line, col, error) {
+  console.error("GLOBAL ERROR DETECTED:", msg, "at line", line, "col", col, error);
+  alert("Error: " + msg + "\nLine: " + line + "\nStack: " + (error ? error.stack : ""));
+  return false;
+};
 /* ═══════════════════════════════════════════════════════════════
    WILDVISION — WILDLIFE IDENTIFICATION CHAMPIONSHIP
    300 species · Mammals · Birds · Reptiles · Amphibians · Marine · Insects
-═══════════════════════════════════════════════════════════════ */
-
-/* ─────────────────────────────────────────
-   ANIMAL DATABASE  (300 species)
-───────────────────────────────────────── */
+   ═══════════════════════════════════════════════════════════════ */
 const ANIMALS = [
-  // ══════════ MAMMALS (93) ══════════
-  // Wild Cats
-  {id:1,  name:"African Lion",              category:"Mammal",  image:"images/001.jpg", wiki:"Lion"},
-  {id:2,  name:"Bengal Tiger",             category:"Mammal",  image:"images/002.jpg", wiki:"Bengal tiger"},
-  {id:3,  name:"Snow Leopard",             category:"Mammal",  image:"images/003.jpg", wiki:"Snow leopard"},
-  {id:4,  name:"Cheetah",                  category:"Mammal",  image:"images/004.jpg", wiki:"Cheetah"},
-  {id:5,  name:"Jaguar",                   category:"Mammal",  image:"images/005.jpg", wiki:"Jaguar"},
-  {id:6,  name:"Leopard",                  category:"Mammal",  image:"images/006.jpg", wiki:"Leopard"},
-  {id:7,  name:"Cougar",                   category:"Mammal",  image:"images/007.jpg", wiki:"Cougar"},
-  {id:8,  name:"Clouded Leopard",          category:"Mammal",  image:"images/008.jpg", wiki:"Clouded leopard"},
-  {id:9,  name:"Caracal",                  category:"Mammal",  image:"images/009.jpg", wiki:"Caracal"},
-  {id:10, name:"Serval",                   category:"Mammal",  image:"images/010.jpg", wiki:"Serval"},
-  {id:11, name:"Ocelot",                   category:"Mammal",  image:"images/011.jpg", wiki:"Ocelot"},
-  {id:12, name:"Bobcat",                   category:"Mammal",  image:"images/012.jpg", wiki:"Bobcat"},
-  {id:13, name:"Eurasian Lynx",            category:"Mammal",  image:"images/013.jpg", wiki:"Eurasian lynx"},
-  {id:14, name:"Sand Cat",                 category:"Mammal",  image:"images/014.jpg", wiki:"Sand cat"},
-  {id:15, name:"Fishing Cat",              category:"Mammal",  image:"images/015.jpg", wiki:"Fishing cat"},
-  // Canids & Hyenas
-  {id:16, name:"Gray Wolf",                category:"Mammal",  image:"images/016.jpg", wiki:"Wolf"},
-  {id:17, name:"Red Fox",                  category:"Mammal",  image:"images/017.jpg", wiki:"Red fox"},
-  {id:18, name:"Arctic Fox",               category:"Mammal",  image:"images/018.jpg", wiki:"Arctic fox"},
-  {id:19, name:"Fennec Fox",               category:"Mammal",  image:"images/019.jpg", wiki:"Fennec fox"},
-  {id:20, name:"African Wild Dog",         category:"Mammal",  image:"images/020.jpg", wiki:"African wild dog"},
-  {id:21, name:"Spotted Hyena",            category:"Mammal",  image:"images/021.jpg", wiki:"Spotted hyena"},
-  {id:22, name:"Striped Hyena",            category:"Mammal",  image:"images/022.jpg", wiki:"Striped hyena"},
-  {id:23, name:"Dhole",                    category:"Mammal",  image:"images/023.jpg", wiki:"Dhole"},
-  // Bears
-  {id:24, name:"Brown Bear",               category:"Mammal",  image:"images/024.jpg", wiki:"Brown bear"},
-  {id:25, name:"Polar Bear",               category:"Mammal",  image:"images/025.jpg", wiki:"Polar bear"},
-  {id:26, name:"Giant Panda",              category:"Mammal",  image:"images/026.jpg", wiki:"Giant panda"},
-  {id:27, name:"Sun Bear",                 category:"Mammal",  image:"images/027.jpg", wiki:"Sun bear"},
-  {id:28, name:"Spectacled Bear",          category:"Mammal",  image:"images/028.jpg", wiki:"Spectacled bear"},
-  {id:29, name:"Sloth Bear",               category:"Mammal",  image:"images/029.jpg", wiki:"Sloth bear"},
-  // Elephants & Rhinos
-  {id:30, name:"African Elephant",         category:"Mammal",  image:"images/030.jpg", wiki:"African bush elephant"},
-  {id:31, name:"Asian Elephant",           category:"Mammal",  image:"images/031.jpg", wiki:"Asian elephant"},
-  {id:32, name:"White Rhinoceros",         category:"Mammal",  image:"images/032.jpg", wiki:"White rhinoceros"},
-  {id:33, name:"Black Rhinoceros",         category:"Mammal",  image:"images/033.jpg", wiki:"Black rhinoceros"},
-  {id:34, name:"Indian Rhinoceros",        category:"Mammal",  image:"images/034.jpg", wiki:"Indian rhinoceros"},
-  // Hippos
-  {id:35, name:"Hippopotamus",             category:"Mammal",  image:"images/035.jpg", wiki:"Hippopotamus"},
-  {id:36, name:"Pygmy Hippopotamus",       category:"Mammal",  image:"images/036.jpg", wiki:"Pygmy hippopotamus"},
-  // Giraffes & Zebras
-  {id:37, name:"Giraffe",                  category:"Mammal",  image:"images/037.jpg", wiki:"Giraffe"},
-  {id:38, name:"Plains Zebra",             category:"Mammal",  image:"images/038.jpg", wiki:"Plains zebra"},
-  {id:39, name:"Grevy's Zebra",            category:"Mammal",  image:"images/039.jpg", wiki:"Grevy's zebra"},
-  {id:40, name:"Okapi",                    category:"Mammal",  image:"images/040.jpg", wiki:"Okapi"},
-  {id:41, name:"Warthog",                  category:"Mammal",  image:"images/041.jpg", wiki:"Warthog"},
-  // Primates
-  {id:42, name:"Western Gorilla",          category:"Mammal",  image:"images/042.jpg", wiki:"Western gorilla"},
-  {id:43, name:"Chimpanzee",               category:"Mammal",  image:"images/043.jpg", wiki:"Chimpanzee"},
-  {id:44, name:"Bornean Orangutan",        category:"Mammal",  image:"images/044.jpg", wiki:"Bornean orangutan"},
-  {id:45, name:"Mandrill",                 category:"Mammal",  image:"images/045.jpg", wiki:"Mandrill"},
-  {id:46, name:"Proboscis Monkey",         category:"Mammal",  image:"images/046.jpg", wiki:"Proboscis monkey"},
-  {id:47, name:"Golden Snub-nosed Monkey", category:"Mammal",  image:"images/047.jpg", wiki:"Golden snub-nosed monkey"},
-  {id:48, name:"Japanese Macaque",         category:"Mammal",  image:"images/048.jpg", wiki:"Japanese macaque"},
-  {id:49, name:"Gelada",                   category:"Mammal",  image:"images/049.jpg", wiki:"Gelada"},
-  {id:50, name:"Hamadryas Baboon",         category:"Mammal",  image:"images/050.jpg", wiki:"Hamadryas baboon"},
-  {id:51, name:"Ring-tailed Lemur",        category:"Mammal",  image:"images/051.jpg", wiki:"Ring-tailed lemur"},
-  {id:52, name:"Aye-aye",                  category:"Mammal",  image:"images/052.jpg", wiki:"Aye-aye"},
-  // Ungulates
-  {id:53, name:"Moose",                    category:"Mammal",  image:"images/053.jpg", wiki:"Moose"},
-  {id:54, name:"Caribou",                  category:"Mammal",  image:"images/054.jpg", wiki:"Reindeer"},
-  {id:55, name:"American Bison",           category:"Mammal",  image:"images/055.jpg", wiki:"American bison"},
-  {id:56, name:"Musk Ox",                  category:"Mammal",  image:"images/056.jpg", wiki:"Musk ox"},
-  {id:57, name:"Mountain Goat",            category:"Mammal",  image:"images/057.jpg", wiki:"Mountain goat"},
-  {id:58, name:"Bighorn Sheep",            category:"Mammal",  image:"images/058.jpg", wiki:"Bighorn sheep"},
-  {id:59, name:"Alpine Ibex",              category:"Mammal",  image:"images/059.jpg", wiki:"Alpine ibex"},
-  {id:60, name:"Markhor",                  category:"Mammal",  image:"images/060.jpg", wiki:"Markhor"},
-  {id:61, name:"Wildebeest",               category:"Mammal",  image:"images/061.jpg", wiki:"Wildebeest"},
-  {id:62, name:"Springbok",                category:"Mammal",  image:"images/062.jpg", wiki:"Springbok"},
-  {id:63, name:"Impala",                   category:"Mammal",  image:"images/063.jpg", wiki:"Impala (animal)"},
-  {id:64, name:"Gemsbok",                  category:"Mammal",  image:"images/064.jpg", wiki:"Gemsbok"},
-  {id:65, name:"Arabian Oryx",             category:"Mammal",  image:"images/065.jpg", wiki:"Arabian oryx"},
-  {id:66, name:"Saiga Antelope",           category:"Mammal",  image:"images/066.jpg", wiki:"Saiga antelope"},
-  // Odd mammals
-  {id:67, name:"Capybara",                 category:"Mammal",  image:"images/067.jpg", wiki:"Capybara"},
-  {id:68, name:"Giant Anteater",           category:"Mammal",  image:"images/068.jpg", wiki:"Giant anteater"},
-  {id:69, name:"Three-toed Sloth",         category:"Mammal",  image:"images/069.jpg", wiki:"Pale-throated sloth"},
-  {id:70, name:"Giant Armadillo",          category:"Mammal",  image:"images/070.jpg", wiki:"Giant armadillo"},
-  {id:71, name:"Platypus",                 category:"Mammal",  image:"images/071.jpg", wiki:"Platypus"},
-  {id:72, name:"Short-beaked Echidna",     category:"Mammal",  image:"images/072.jpg", wiki:"Short-beaked echidna"},
-  {id:73, name:"Koala",                    category:"Mammal",  image:"images/073.jpg", wiki:"Koala"},
-  {id:74, name:"Red Kangaroo",             category:"Mammal",  image:"images/074.jpg", wiki:"Red kangaroo"},
-  {id:75, name:"Tasmanian Devil",          category:"Mammal",  image:"images/075.jpg", wiki:"Tasmanian devil"},
-  {id:76, name:"Quokka",                   category:"Mammal",  image:"images/076.jpg", wiki:"Quokka"},
-  {id:77, name:"Malayan Tapir",            category:"Mammal",  image:"images/077.jpg", wiki:"Malayan tapir"},
-  {id:78, name:"Pangolin",                 category:"Mammal",  image:"images/078.jpg", wiki:"Pangolin"},
-  // Marine mammals
-  {id:79, name:"Narwhal",                  category:"Mammal",  image:"images/079.jpg", wiki:"Narwhal"},
-  {id:80, name:"Orca",                     category:"Mammal",  image:"images/080.jpg", wiki:"Orca"},
-  {id:81, name:"Humpback Whale",           category:"Mammal",  image:"images/081.jpg", wiki:"Humpback whale"},
-  {id:82, name:"Sperm Whale",              category:"Mammal",  image:"images/082.jpg", wiki:"Sperm whale"},
-  {id:83, name:"Beluga Whale",             category:"Mammal",  image:"images/083.jpg", wiki:"Beluga whale"},
-  {id:84, name:"Bottlenose Dolphin",       category:"Mammal",  image:"images/084.jpg", wiki:"Common bottlenose dolphin"},
-  {id:85, name:"Walrus",                   category:"Mammal",  image:"images/085.jpg", wiki:"Walrus"},
-  {id:86, name:"Northern Elephant Seal",   category:"Mammal",  image:"images/086.jpg", wiki:"Northern elephant seal"},
-  // Carnivores
-  {id:87, name:"Sea Otter",                category:"Mammal",  image:"images/087.jpg", wiki:"Sea otter"},
-  {id:88, name:"Giant Otter",              category:"Mammal",  image:"images/088.jpg", wiki:"Giant otter"},
-  {id:89, name:"Wolverine",                category:"Mammal",  image:"images/089.jpg", wiki:"Wolverine (animal)"},
-  {id:90, name:"Honey Badger",             category:"Mammal",  image:"images/090.jpg", wiki:"Honey badger"},
-  {id:91, name:"Meerkat",                  category:"Mammal",  image:"images/091.jpg", wiki:"Meerkat"},
-  {id:92, name:"Fossa",                    category:"Mammal",  image:"images/092.jpg", wiki:"Fossa (animal)"},
-  {id:93, name:"Aardvark",                 category:"Mammal",  image:"images/093.jpg", wiki:"Aardvark"},
-
-  // ══════════ BIRDS (97) ══════════
-  // Eagles
-  {id:94,  name:"Bald Eagle",              category:"Bird",    image:"images/094.jpg", wiki:"Bald eagle"},
-  {id:95,  name:"Golden Eagle",            category:"Bird",    image:"images/095.jpg", wiki:"Golden eagle"},
-  {id:96,  name:"Harpy Eagle",             category:"Bird",    image:"images/096.jpg", wiki:"Harpy eagle"},
-  {id:97,  name:"Philippine Eagle",        category:"Bird",    image:"images/097.jpg", wiki:"Philippine eagle"},
-  {id:98,  name:"Steller's Sea Eagle",     category:"Bird",    image:"images/098.jpg", wiki:"Steller's sea eagle"},
-  {id:99,  name:"Wedge-tailed Eagle",      category:"Bird",    image:"images/099.jpg", wiki:"Wedge-tailed eagle"},
-  {id:100, name:"Martial Eagle",           category:"Bird",    image:"images/100.jpg", wiki:"Martial eagle"},
-  // Falcons & Hawks
-  {id:101, name:"Peregrine Falcon",        category:"Bird",    image:"images/101.jpg", wiki:"Peregrine falcon"},
-  {id:102, name:"Gyrfalcon",               category:"Bird",    image:"images/102.jpg", wiki:"Gyrfalcon"},
-  {id:103, name:"Saker Falcon",            category:"Bird",    image:"images/103.jpg", wiki:"Saker falcon"},
-  {id:104, name:"Osprey",                  category:"Bird",    image:"images/104.jpg", wiki:"Osprey"},
-  // Owls
-  {id:105, name:"Snowy Owl",               category:"Bird",    image:"images/105.jpg", wiki:"Snowy owl"},
-  {id:106, name:"Great Horned Owl",        category:"Bird",    image:"images/106.jpg", wiki:"Great horned owl"},
-  {id:107, name:"Barn Owl",                category:"Bird",    image:"images/107.jpg", wiki:"Barn owl"},
-  {id:108, name:"Eurasian Eagle-Owl",      category:"Bird",    image:"images/108.jpg", wiki:"Eurasian eagle-owl"},
-  {id:109, name:"Spectacled Owl",          category:"Bird",    image:"images/109.jpg", wiki:"Spectacled owl"},
-  {id:110, name:"Burrowing Owl",           category:"Bird",    image:"images/110.jpg", wiki:"Burrowing owl"},
-  // Peafowl & Flamingos
-  {id:111, name:"Indian Peafowl",          category:"Bird",    image:"images/111.jpg", wiki:"Indian peafowl"},
-  {id:112, name:"Congo Peafowl",           category:"Bird",    image:"images/112.jpg", wiki:"Congo peafowl"},
-  {id:113, name:"Greater Flamingo",        category:"Bird",    image:"images/113.jpg", wiki:"Greater flamingo"},
-  {id:114, name:"Lesser Flamingo",         category:"Bird",    image:"images/114.jpg", wiki:"Lesser flamingo"},
-  // Toucans
-  {id:115, name:"Toco Toucan",             category:"Bird",    image:"images/115.jpg", wiki:"Toco toucan"},
-  {id:116, name:"Keel-billed Toucan",      category:"Bird",    image:"images/116.jpg", wiki:"Keel-billed toucan"},
-  // Macaws & Parrots
-  {id:117, name:"Scarlet Macaw",           category:"Bird",    image:"images/117.jpg", wiki:"Scarlet macaw"},
-  {id:118, name:"Blue-and-yellow Macaw",   category:"Bird",    image:"images/118.jpg", wiki:"Blue-and-yellow macaw"},
-  {id:119, name:"Hyacinth Macaw",          category:"Bird",    image:"images/119.jpg", wiki:"Hyacinth macaw"},
-  {id:120, name:"African Grey Parrot",     category:"Bird",    image:"images/120.jpg", wiki:"Grey parrot"},
-  {id:121, name:"Sulphur-crested Cockatoo",category:"Bird",    image:"images/121.jpg", wiki:"Sulphur-crested cockatoo"},
-  {id:122, name:"Palm Cockatoo",           category:"Bird",    image:"images/122.jpg", wiki:"Palm cockatoo"},
-  {id:123, name:"Rainbow Lorikeet",        category:"Bird",    image:"images/123.jpg", wiki:"Rainbow lorikeet"},
-  // Ratites
-  {id:124, name:"Kiwi",                    category:"Bird",    image:"images/124.jpg", wiki:"North Island brown kiwi"},
-  {id:125, name:"Emu",                     category:"Bird",    image:"images/125.jpg", wiki:"Emu"},
-  {id:126, name:"Common Ostrich",          category:"Bird",    image:"images/126.jpg", wiki:"Common ostrich"},
-  {id:127, name:"Southern Cassowary",      category:"Bird",    image:"images/127.jpg", wiki:"Southern cassowary"},
-  {id:128, name:"Greater Rhea",            category:"Bird",    image:"images/128.jpg", wiki:"Greater rhea"},
-  // Penguins
-  {id:129, name:"Emperor Penguin",         category:"Bird",    image:"images/129.jpg", wiki:"Emperor penguin"},
-  {id:130, name:"King Penguin",            category:"Bird",    image:"images/130.jpg", wiki:"King penguin"},
-  {id:131, name:"Macaroni Penguin",        category:"Bird",    image:"images/131.jpg", wiki:"Macaroni penguin"},
-  {id:132, name:"African Penguin",         category:"Bird",    image:"images/132.jpg", wiki:"African penguin"},
-  {id:133, name:"Rockhopper Penguin",      category:"Bird",    image:"images/133.jpg", wiki:"Rockhopper penguin"},
-  // Puffins
-  {id:134, name:"Atlantic Puffin",         category:"Bird",    image:"images/134.jpg", wiki:"Atlantic puffin"},
-  {id:135, name:"Tufted Puffin",           category:"Bird",    image:"images/135.jpg", wiki:"Tufted puffin"},
-  // Unique birds
-  {id:136, name:"Shoebill",                category:"Bird",    image:"images/136.jpg", wiki:"Shoebill"},
-  {id:137, name:"Secretary Bird",          category:"Bird",    image:"images/137.jpg", wiki:"Secretarybird"},
-  {id:138, name:"Magnificent Frigatebird", category:"Bird",    image:"images/138.jpg", wiki:"Magnificent frigatebird"},
-  {id:139, name:"Blue-footed Booby",       category:"Bird",    image:"images/139.jpg", wiki:"Blue-footed booby"},
-  {id:140, name:"Red-footed Booby",        category:"Bird",    image:"images/140.jpg", wiki:"Red-footed booby"},
-  // Hornbills
-  {id:141, name:"Great Hornbill",          category:"Bird",    image:"images/141.jpg", wiki:"Great hornbill"},
-  {id:142, name:"Rhinoceros Hornbill",     category:"Bird",    image:"images/142.jpg", wiki:"Rhinoceros hornbill"},
-  // Hummingbirds
-  {id:143, name:"Ruby-throated Hummingbird",category:"Bird",   image:"images/143.jpg", wiki:"Ruby-throated hummingbird"},
-  {id:144, name:"Bee Hummingbird",         category:"Bird",    image:"images/144.jpg", wiki:"Bee hummingbird"},
-  {id:145, name:"Sword-billed Hummingbird",category:"Bird",    image:"images/145.jpg", wiki:"Sword-billed hummingbird"},
-  // Kingfishers
-  {id:146, name:"Common Kingfisher",       category:"Bird",    image:"images/146.jpg", wiki:"Common kingfisher"},
-  {id:147, name:"Giant Kingfisher",        category:"Bird",    image:"images/147.jpg", wiki:"Giant kingfisher"},
-  {id:148, name:"Laughing Kookaburra",     category:"Bird",    image:"images/148.jpg", wiki:"Laughing kookaburra"},
-  // Condors
-  {id:149, name:"Andean Condor",           category:"Bird",    image:"images/149.jpg", wiki:"Andean condor"},
-  {id:150, name:"California Condor",       category:"Bird",    image:"images/150.jpg", wiki:"California condor"},
-  // Exotic / tropical
-  {id:151, name:"Greater Roadrunner",      category:"Bird",    image:"images/151.jpg", wiki:"Greater roadrunner"},
-  {id:152, name:"Resplendent Quetzal",     category:"Bird",    image:"images/152.jpg", wiki:"Resplendent quetzal"},
-  {id:153, name:"Hoatzin",                 category:"Bird",    image:"images/153.jpg", wiki:"Hoatzin"},
-  {id:154, name:"Kakapo",                  category:"Bird",    image:"images/154.jpg", wiki:"Kakapo"},
-  {id:155, name:"Kea",                     category:"Bird",    image:"images/155.jpg", wiki:"Kea"},
-  {id:156, name:"Victoria Crowned Pigeon", category:"Bird",    image:"images/156.jpg", wiki:"Victoria crowned pigeon"},
-  {id:157, name:"Raggiana Bird-of-paradise",category:"Bird",   image:"images/157.jpg", wiki:"Raggiana bird-of-paradise"},
-  {id:158, name:"Wilson's Bird-of-paradise",category:"Bird",   image:"images/158.jpg", wiki:"Wilson's bird-of-paradise"},
-  {id:159, name:"Superb Lyrebird",         category:"Bird",    image:"images/159.jpg", wiki:"Superb lyrebird"},
-  {id:160, name:"Superb Fairywren",        category:"Bird",    image:"images/160.jpg", wiki:"Superb fairywren"},
-  {id:161, name:"Satin Bowerbird",         category:"Bird",    image:"images/161.jpg", wiki:"Satin bowerbird"},
-  // Storks & Herons
-  {id:162, name:"White Stork",             category:"Bird",    image:"images/162.jpg", wiki:"White stork"},
-  {id:163, name:"Marabou Stork",           category:"Bird",    image:"images/163.jpg", wiki:"Marabou stork"},
-  {id:164, name:"Great Blue Heron",        category:"Bird",    image:"images/164.jpg", wiki:"Great blue heron"},
-  {id:165, name:"Goliath Heron",           category:"Bird",    image:"images/165.jpg", wiki:"Goliath heron"},
-  {id:166, name:"Great Egret",             category:"Bird",    image:"images/166.jpg", wiki:"Great egret"},
-  // Ibis & Cranes
-  {id:167, name:"Scarlet Ibis",            category:"Bird",    image:"images/167.jpg", wiki:"Scarlet ibis"},
-  {id:168, name:"Roseate Spoonbill",       category:"Bird",    image:"images/168.jpg", wiki:"Roseate spoonbill"},
-  {id:169, name:"Whooping Crane",          category:"Bird",    image:"images/169.jpg", wiki:"Whooping crane"},
-  {id:170, name:"Sarus Crane",             category:"Bird",    image:"images/170.jpg", wiki:"Sarus crane"},
-  {id:171, name:"Dalmatian Pelican",       category:"Bird",    image:"images/171.jpg", wiki:"Dalmatian pelican"},
-  {id:172, name:"Wandering Albatross",     category:"Bird",    image:"images/172.jpg", wiki:"Wandering albatross"},
-  // Vultures
-  {id:173, name:"King Vulture",            category:"Bird",    image:"images/173.jpg", wiki:"King vulture"},
-  {id:174, name:"Bearded Vulture",         category:"Bird",    image:"images/174.jpg", wiki:"Bearded vulture"},
-  {id:175, name:"Lappet-faced Vulture",    category:"Bird",    image:"images/175.jpg", wiki:"Lappet-faced vulture"},
-  // Colourful birds
-  {id:176, name:"Indian Roller",           category:"Bird",    image:"images/176.jpg", wiki:"Indian roller"},
-  {id:177, name:"European Bee-eater",      category:"Bird",    image:"images/177.jpg", wiki:"European bee-eater"},
-  {id:178, name:"Eurasian Hoopoe",         category:"Bird",    image:"images/178.jpg", wiki:"Eurasian hoopoe"},
-  {id:179, name:"Lilac-breasted Roller",   category:"Bird",    image:"images/179.jpg", wiki:"Lilac-breasted roller"},
-  {id:180, name:"Long-tailed Widowbird",   category:"Bird",    image:"images/180.jpg", wiki:"Long-tailed widowbird"},
-  {id:181, name:"Painted Bunting",         category:"Bird",    image:"images/181.jpg", wiki:"Painted bunting"},
-  {id:182, name:"Andean Cock-of-the-rock", category:"Bird",    image:"images/182.jpg", wiki:"Andean cock-of-the-rock"},
-  {id:183, name:"Sunbittern",              category:"Bird",    image:"images/183.jpg", wiki:"Sunbittern"},
-  {id:184, name:"Hammerkop",               category:"Bird",    image:"images/184.jpg", wiki:"Hammerkop"},
-  {id:185, name:"Greater Sage-Grouse",     category:"Bird",    image:"images/185.jpg", wiki:"Greater sage-grouse"},
-  {id:186, name:"African Jacana",          category:"Bird",    image:"images/186.jpg", wiki:"African jacana"},
-  {id:187, name:"Turaco",                  category:"Bird",    image:"images/187.jpg", wiki:"Knysna turaco"},
-  {id:188, name:"Common Raven",            category:"Bird",    image:"images/188.jpg", wiki:"Common raven"},
-  {id:189, name:"Curl-crested Aracari",    category:"Bird",    image:"images/189.jpg", wiki:"Curl-crested aracari"},
-  {id:190, name:"Snowy Egret",             category:"Bird",    image:"images/190.jpg", wiki:"Snowy egret"},
-
-  // ══════════ REPTILES (50) ══════════
-  // Monitor lizards & Komodo
-  {id:191, name:"Komodo Dragon",           category:"Reptile", image:"images/191.jpg", wiki:"Komodo dragon"},
-  {id:192, name:"Nile Monitor",            category:"Reptile", image:"images/192.jpg", wiki:"Nile monitor"},
-  {id:193, name:"Bengal Monitor",          category:"Reptile", image:"images/193.jpg", wiki:"Bengal monitor"},
-  // Crocodilians
-  {id:194, name:"Saltwater Crocodile",     category:"Reptile", image:"images/194.jpg", wiki:"Saltwater crocodile"},
-  {id:195, name:"Nile Crocodile",          category:"Reptile", image:"images/195.jpg", wiki:"Nile crocodile"},
-  {id:196, name:"American Crocodile",      category:"Reptile", image:"images/196.jpg", wiki:"American crocodile"},
-  {id:197, name:"American Alligator",      category:"Reptile", image:"images/197.jpg", wiki:"American alligator"},
-  {id:198, name:"Chinese Alligator",       category:"Reptile", image:"images/198.jpg", wiki:"Chinese alligator"},
-  {id:199, name:"Gharial",                 category:"Reptile", image:"images/199.jpg", wiki:"Gharial"},
-  {id:200, name:"Mugger Crocodile",        category:"Reptile", image:"images/200.jpg", wiki:"Mugger crocodile"},
-  // Snakes
-  {id:201, name:"Green Anaconda",          category:"Reptile", image:"images/201.jpg", wiki:"Green anaconda"},
-  {id:202, name:"King Cobra",              category:"Reptile", image:"images/202.jpg", wiki:"King cobra"},
-  {id:203, name:"Black Mamba",             category:"Reptile", image:"images/203.jpg", wiki:"Black mamba"},
-  {id:204, name:"Green Mamba",             category:"Reptile", image:"images/204.jpg", wiki:"Green mamba"},
-  {id:205, name:"Reticulated Python",      category:"Reptile", image:"images/205.jpg", wiki:"Reticulated python"},
-  {id:206, name:"Burmese Python",          category:"Reptile", image:"images/206.jpg", wiki:"Burmese python"},
-  {id:207, name:"African Rock Python",     category:"Reptile", image:"images/207.jpg", wiki:"African rock python"},
-  {id:208, name:"Ball Python",             category:"Reptile", image:"images/208.jpg", wiki:"Ball python"},
-  {id:209, name:"E. Diamondback Rattlesnake",category:"Reptile",image:"images/209.jpg",wiki:"Eastern diamondback rattlesnake"},
-  {id:210, name:"W. Diamondback Rattlesnake",category:"Reptile",image:"images/210.jpg",wiki:"Western diamondback rattlesnake"},
-  {id:211, name:"Gaboon Viper",            category:"Reptile", image:"images/211.jpg", wiki:"Gaboon viper"},
-  {id:212, name:"Puff Adder",              category:"Reptile", image:"images/212.jpg", wiki:"Puff adder"},
-  {id:213, name:"Inland Taipan",           category:"Reptile", image:"images/213.jpg", wiki:"Inland taipan"},
-  {id:214, name:"Eastern Brown Snake",     category:"Reptile", image:"images/214.jpg", wiki:"Eastern brown snake"},
-  {id:215, name:"Boa Constrictor",         category:"Reptile", image:"images/215.jpg", wiki:"Boa constrictor"},
-  {id:216, name:"Emerald Tree Boa",        category:"Reptile", image:"images/216.jpg", wiki:"Emerald tree boa"},
-  {id:217, name:"Boomslang",               category:"Reptile", image:"images/217.jpg", wiki:"Boomslang"},
-  // Lizards
-  {id:218, name:"Veiled Chameleon",        category:"Reptile", image:"images/218.jpg", wiki:"Veiled chameleon"},
-  {id:219, name:"Panther Chameleon",       category:"Reptile", image:"images/219.jpg", wiki:"Panther chameleon"},
-  {id:220, name:"Jackson's Chameleon",     category:"Reptile", image:"images/220.jpg", wiki:"Jackson's chameleon"},
-  {id:221, name:"Green Iguana",            category:"Reptile", image:"images/221.jpg", wiki:"Green iguana"},
-  {id:222, name:"Marine Iguana",           category:"Reptile", image:"images/222.jpg", wiki:"Marine iguana"},
-  {id:223, name:"Gila Monster",            category:"Reptile", image:"images/223.jpg", wiki:"Gila monster"},
-  {id:224, name:"Mexican Beaded Lizard",   category:"Reptile", image:"images/224.jpg", wiki:"Mexican beaded lizard"},
-  {id:225, name:"Frilled-neck Lizard",     category:"Reptile", image:"images/225.jpg", wiki:"Frilled-neck lizard"},
-  {id:226, name:"Thorny Dragon",           category:"Reptile", image:"images/226.jpg", wiki:"Thorny dragon"},
-  {id:227, name:"Bearded Dragon",          category:"Reptile", image:"images/227.jpg", wiki:"Pogona"},
-  {id:228, name:"Blue-tongued Skink",      category:"Reptile", image:"images/228.jpg", wiki:"Blue-tongued skink"},
-  {id:229, name:"Tokay Gecko",             category:"Reptile", image:"images/229.jpg", wiki:"Tokay gecko"},
-  {id:230, name:"Satanic Leaf-tailed Gecko",category:"Reptile",image:"images/230.jpg", wiki:"Satanic leaf-tailed gecko"},
-  // Turtles & Tortoises
-  {id:231, name:"Leatherback Sea Turtle",  category:"Reptile", image:"images/231.jpg", wiki:"Leatherback sea turtle"},
-  {id:232, name:"Green Sea Turtle",        category:"Reptile", image:"images/232.jpg", wiki:"Green sea turtle"},
-  {id:233, name:"Hawksbill Sea Turtle",    category:"Reptile", image:"images/233.jpg", wiki:"Hawksbill sea turtle"},
-  {id:234, name:"Loggerhead Sea Turtle",   category:"Reptile", image:"images/234.jpg", wiki:"Loggerhead sea turtle"},
-  {id:235, name:"Galápagos Tortoise",      category:"Reptile", image:"images/235.jpg", wiki:"Galápagos tortoise"},
-  {id:236, name:"Aldabra Giant Tortoise",  category:"Reptile", image:"images/236.jpg", wiki:"Aldabra giant tortoise"},
-  {id:237, name:"Indian Star Tortoise",    category:"Reptile", image:"images/237.jpg", wiki:"Indian star tortoise"},
-  {id:238, name:"Alligator Snapping Turtle",category:"Reptile",image:"images/238.jpg", wiki:"Alligator snapping turtle"},
-  {id:239, name:"Mata Mata Turtle",        category:"Reptile", image:"images/239.jpg", wiki:"Mata mata"},
-  {id:240, name:"Painted Turtle",          category:"Reptile", image:"images/240.jpg", wiki:"Painted turtle"},
-
-  // ══════════ AMPHIBIANS (18) ══════════
-  {id:241, name:"Red-eyed Tree Frog",      category:"Amphibian",image:"images/241.jpg",wiki:"Red-eyed tree frog"},
-  {id:242, name:"Blue Poison Dart Frog",   category:"Amphibian",image:"images/242.jpg",wiki:"Dyeing poison dart frog"},
-  {id:243, name:"Golden Poison Frog",      category:"Amphibian",image:"images/243.jpg",wiki:"Golden poison frog"},
-  {id:244, name:"Tomato Frog",             category:"Amphibian",image:"images/244.jpg",wiki:"Tomato frog"},
-  {id:245, name:"Purple Frog",             category:"Amphibian",image:"images/245.jpg",wiki:"Purple frog"},
-  {id:246, name:"Axolotl",                 category:"Amphibian",image:"images/246.jpg",wiki:"Axolotl"},
-  {id:247, name:"Fire Salamander",         category:"Amphibian",image:"images/247.jpg",wiki:"Fire salamander"},
-  {id:248, name:"Chinese Giant Salamander",category:"Amphibian",image:"images/248.jpg",wiki:"Chinese giant salamander"},
-  {id:249, name:"Tiger Salamander",        category:"Amphibian",image:"images/249.jpg",wiki:"Tiger salamander"},
-  {id:250, name:"Goliath Frog",            category:"Amphibian",image:"images/250.jpg",wiki:"Goliath frog"},
-  {id:251, name:"Glass Frog",              category:"Amphibian",image:"images/251.jpg",wiki:"Glass frog"},
-  {id:252, name:"Olm",                     category:"Amphibian",image:"images/252.jpg",wiki:"Olm"},
-  {id:253, name:"Bumblebee Poison Frog",   category:"Amphibian",image:"images/253.jpg",wiki:"Bumblebee poison frog"},
-  {id:254, name:"Amazon Milk Frog",        category:"Amphibian",image:"images/254.jpg",wiki:"Amazon milk frog"},
-  {id:255, name:"Pacman Frog",             category:"Amphibian",image:"images/255.jpg",wiki:"Argentine horned frog"},
-  {id:256, name:"Hellbender",              category:"Amphibian",image:"images/256.jpg",wiki:"Hellbender"},
-  {id:257, name:"Spotted Salamander",      category:"Amphibian",image:"images/257.jpg",wiki:"Spotted salamander"},
-  {id:258, name:"Surinam Toad",            category:"Amphibian",image:"images/258.jpg",wiki:"Surinam toad"},
-
-  // ══════════ MARINE (25) ══════════
-  {id:259, name:"Great White Shark",       category:"Marine",  image:"images/259.jpg", wiki:"Great white shark"},
-  {id:260, name:"Whale Shark",             category:"Marine",  image:"images/260.jpg", wiki:"Whale shark"},
-  {id:261, name:"Great Hammerhead Shark",  category:"Marine",  image:"images/261.jpg", wiki:"Great hammerhead"},
-  {id:262, name:"Bull Shark",              category:"Marine",  image:"images/262.jpg", wiki:"Bull shark"},
-  {id:263, name:"Tiger Shark",             category:"Marine",  image:"images/263.jpg", wiki:"Tiger shark"},
-  {id:264, name:"Basking Shark",           category:"Marine",  image:"images/264.jpg", wiki:"Basking shark"},
-  {id:265, name:"Oceanic Manta Ray",       category:"Marine",  image:"images/265.jpg", wiki:"Giant oceanic manta ray"},
-  {id:266, name:"Spotted Eagle Ray",       category:"Marine",  image:"images/266.jpg", wiki:"Spotted eagle ray"},
-  {id:267, name:"Giant Pacific Octopus",   category:"Marine",  image:"images/267.jpg", wiki:"Giant Pacific octopus"},
-  {id:268, name:"Blue-ringed Octopus",     category:"Marine",  image:"images/268.jpg", wiki:"Blue-ringed octopus"},
-  {id:269, name:"Mimic Octopus",           category:"Marine",  image:"images/269.jpg", wiki:"Mimic octopus"},
-  {id:270, name:"Giant Squid",             category:"Marine",  image:"images/270.jpg", wiki:"Giant squid"},
-  {id:271, name:"Nautilus",                category:"Marine",  image:"images/271.jpg", wiki:"Nautilus (mollusc)"},
-  {id:272, name:"Lion's Mane Jellyfish",   category:"Marine",  image:"images/272.jpg", wiki:"Lion's mane jellyfish"},
-  {id:273, name:"Box Jellyfish",           category:"Marine",  image:"images/273.jpg", wiki:"Box jellyfish"},
-  {id:274, name:"Leafy Sea Dragon",        category:"Marine",  image:"images/274.jpg", wiki:"Leafy sea dragon"},
-  {id:275, name:"Weedy Sea Dragon",        category:"Marine",  image:"images/275.jpg", wiki:"Weedy seadragon"},
-  {id:276, name:"Common Seahorse",         category:"Marine",  image:"images/276.jpg", wiki:"Common seahorse"},
-  {id:277, name:"Clownfish",               category:"Marine",  image:"images/277.jpg", wiki:"Clownfish"},
-  {id:278, name:"Red Lionfish",            category:"Marine",  image:"images/278.jpg", wiki:"Red lionfish"},
-  {id:279, name:"Giant Moray Eel",         category:"Marine",  image:"images/279.jpg", wiki:"Giant moray"},
-  {id:280, name:"Peacock Mantis Shrimp",   category:"Marine",  image:"images/280.jpg", wiki:"Peacock mantis shrimp"},
-  {id:281, name:"Coconut Crab",            category:"Marine",  image:"images/281.jpg", wiki:"Coconut crab"},
-  {id:282, name:"Giant Isopod",            category:"Marine",  image:"images/282.jpg", wiki:"Giant isopod"},
-  {id:283, name:"Coelacanth",              category:"Marine",  image:"images/283.jpg", wiki:"Coelacanth"},
-
-  // ══════════ INSECTS & ARACHNIDS (17) ══════════
-  {id:284, name:"Monarch Butterfly",       category:"Insect",  image:"images/284.jpg", wiki:"Monarch butterfly"},
-  {id:285, name:"Blue Morpho Butterfly",   category:"Insect",  image:"images/285.jpg", wiki:"Blue morpho"},
-  {id:286, name:"Atlas Moth",              category:"Insect",  image:"images/286.jpg", wiki:"Attacus atlas"},
-  {id:287, name:"Goliath Beetle",          category:"Insect",  image:"images/287.jpg", wiki:"Goliath beetle"},
-  {id:288, name:"Hercules Beetle",         category:"Insect",  image:"images/288.jpg", wiki:"Hercules beetle"},
-  {id:289, name:"Titan Beetle",            category:"Insect",  image:"images/289.jpg", wiki:"Titan beetle"},
-  {id:290, name:"Goliath Birdeater",       category:"Insect",  image:"images/290.jpg", wiki:"Goliath birdeater"},
-  {id:291, name:"Black Widow Spider",      category:"Insect",  image:"images/291.jpg", wiki:"Western black widow"},
-  {id:292, name:"Peacock Spider",          category:"Insect",  image:"images/292.jpg", wiki:"Peacock spider"},
-  {id:293, name:"Orchid Mantis",           category:"Insect",  image:"images/293.jpg", wiki:"Hymenopus coronatus"},
-  {id:294, name:"Dead Leaf Mantis",        category:"Insect",  image:"images/294.jpg", wiki:"Deroplatys desiccata"},
-  {id:295, name:"Giant Walking Stick",     category:"Insect",  image:"images/295.jpg", wiki:"Phobaeticus chani"},
-  {id:296, name:"Jewel Beetle",            category:"Insect",  image:"images/296.jpg", wiki:"Buprestidae"},
-  {id:297, name:"Tarantula Hawk",          category:"Insect",  image:"images/297.jpg", wiki:"Tarantula hawk"},
-  {id:298, name:"Wallace's Giant Bee",     category:"Insect",  image:"images/298.jpg", wiki:"Wallace's giant bee"},
-  {id:299, name:"Morpho Peleides",         category:"Insect",  image:"images/299.jpg", wiki:"Morpho peleides"},
-  {id:300, name:"Bombardier Beetle",       category:"Insect",  image:"images/300.jpg", wiki:"Bombardier beetle"},
+  {id:107, name:"Poison Dart Frog         ", category:"Amphibian ", image:"images/107.jpg", wiki:"Dyeing poison dart frog"},
+  {id:108, name:"Axolotl                  ", category:"Amphibian ", image:"images/108.jpg", wiki:"Axolotl"},
+  {id:109, name:"Fire Salamander          ", category:"Amphibian ", image:"images/109.jpg", wiki:"Fire salamander"},
+  {id:110, name:"American Bullfrog        ", category:"Amphibian ", image:"images/110.jpg", wiki:"American bullfrog"},
+  {id:111, name:"Toad                     ", category:"Amphibian ", image:"images/111.jpg", wiki:"Common toad"},
+  {id:112, name:"Newt                     ", category:"Amphibian ", image:"images/112.jpg", wiki:"Smooth newt"},
+  {id:113, name:"Tiger Salamander         ", category:"Amphibian ", image:"images/113.jpg", wiki:"Tiger salamander"},
+  {id:66 , name:"Bald Eagle               ", category:"Bird      ", image:"images/066.jpg", wiki:"Bald eagle"},
+  {id:67 , name:"Snowy Owl                ", category:"Bird      ", image:"images/067.jpg", wiki:"Snowy owl"},
+  {id:68 , name:"Barn Owl                 ", category:"Bird      ", image:"images/068.jpg", wiki:"Barn owl"},
+  {id:69 , name:"Flamingo                 ", category:"Bird      ", image:"images/069.jpg", wiki:"Greater flamingo"},
+  {id:70 , name:"Peacock                  ", category:"Bird      ", image:"images/070.jpg", wiki:"Indian peafowl"},
+  {id:71 , name:"Toucan                   ", category:"Bird      ", image:"images/071.jpg", wiki:"Toco toucan"},
+  {id:72 , name:"Scarlet Macaw            ", category:"Bird      ", image:"images/072.jpg", wiki:"Scarlet macaw"},
+  {id:73 , name:"Penguin                  ", category:"Bird      ", image:"images/073.jpg", wiki:"Penguin"},
+  {id:74 , name:"Ostrich                  ", category:"Bird      ", image:"images/074.jpg", wiki:"Common ostrich"},
+  {id:75 , name:"Emu                      ", category:"Bird      ", image:"images/075.jpg", wiki:"Emu"},
+  {id:76 , name:"Kiwi                     ", category:"Bird      ", image:"images/076.jpg", wiki:"North Island brown kiwi"},
+  {id:77 , name:"Kingfisher               ", category:"Bird      ", image:"images/077.jpg", wiki:"Common kingfisher"},
+  {id:78 , name:"Pelican                  ", category:"Bird      ", image:"images/078.jpg", wiki:"Great white pelican"},
+  {id:79 , name:"Hummingbird              ", category:"Bird      ", image:"images/079.jpg", wiki:"Ruby-throated hummingbird"},
+  {id:80 , name:"Swan                     ", category:"Bird      ", image:"images/080.jpg", wiki:"Mute swan"},
+  {id:81 , name:"Duck                     ", category:"Bird      ", image:"images/081.jpg", wiki:"Mallard"},
+  {id:82 , name:"Goose                    ", category:"Bird      ", image:"images/082.jpg", wiki:"Canada goose"},
+  {id:83 , name:"Rooster                  ", category:"Bird      ", image:"images/083.jpg", wiki:"Rooster"},
+  {id:84 , name:"Turkey                   ", category:"Bird      ", image:"images/084.jpg", wiki:"Wild turkey"},
+  {id:85 , name:"Seagull                  ", category:"Bird      ", image:"images/085.jpg", wiki:"European herring gull"},
+  {id:86 , name:"Falcon                   ", category:"Bird      ", image:"images/086.jpg", wiki:"Peregrine falcon"},
+  {id:87 , name:"Parrot                   ", category:"Bird      ", image:"images/087.jpg", wiki:"Grey parrot"},
+  {id:88 , name:"Puffin                   ", category:"Bird      ", image:"images/088.jpg", wiki:"Atlantic puffin"},
+  {id:89 , name:"Woodpecker               ", category:"Bird      ", image:"images/089.jpg", wiki:"Great spotted woodpecker"},
+  {id:90 , name:"Pigeon                   ", category:"Bird      ", image:"images/090.jpg", wiki:"Rock dove"},
+  {id:163, name:"Cassowary                ", category:"Bird      ", image:"images/163.jpg", wiki:"Cassowary"},
+  {id:164, name:"Shoebill                 ", category:"Bird      ", image:"images/164.jpg", wiki:"Shoebill"},
+  {id:165, name:"Hornbill                 ", category:"Bird      ", image:"images/165.jpg", wiki:"Hornbill"},
+  {id:166, name:"Albatross                ", category:"Bird      ", image:"images/166.jpg", wiki:"Albatross"},
+  {id:167, name:"Stork                    ", category:"Bird      ", image:"images/167.jpg", wiki:"Stork"},
+  {id:168, name:"Spoonbill                ", category:"Bird      ", image:"images/168.jpg", wiki:"Spoonbill"},
+  {id:169, name:"Vulture                  ", category:"Bird      ", image:"images/169.jpg", wiki:"Vulture"},
+  {id:170, name:"Quail                    ", category:"Bird      ", image:"images/170.jpg", wiki:"Common quail"},
+  {id:171, name:"Secretary Bird           ", category:"Bird      ", image:"images/171.jpg", wiki:"Secretarybird"},
+  {id:172, name:"Quetzal                  ", category:"Bird      ", image:"images/172.jpg", wiki:"Resplendent quetzal"},
+  {id:126, name:"Monarch Butterfly        ", category:"Insect    ", image:"images/126.jpg", wiki:"Monarch butterfly"},
+  {id:127, name:"Honeybee                 ", category:"Insect    ", image:"images/127.jpg", wiki:"Honey bee"},
+  {id:128, name:"Ladybug                  ", category:"Insect    ", image:"images/128.jpg", wiki:"Coccinellidae"},
+  {id:129, name:"Praying Mantis           ", category:"Insect    ", image:"images/129.jpg", wiki:"European mantis"},
+  {id:130, name:"Tarantula                ", category:"Insect    ", image:"images/130.jpg", wiki:"Tarantula"},
+  {id:132, name:"Grasshopper              ", category:"Insect    ", image:"images/132.jpg", wiki:"Grasshopper"},
+  {id:133, name:"Dragonfly                ", category:"Insect    ", image:"images/133.jpg", wiki:"Dragonfly"},
+  {id:1  , name:"Lion                     ", category:"Mammal    ", image:"images/001.jpg", wiki:"Lion"},
+  {id:2  , name:"Tiger                    ", category:"Mammal    ", image:"images/002.jpg", wiki:"Tiger"},
+  {id:3  , name:"Cheetah                  ", category:"Mammal    ", image:"images/003.jpg", wiki:"Cheetah"},
+  {id:4  , name:"Jaguar                   ", category:"Mammal    ", image:"images/004.jpg", wiki:"Jaguar"},
+  {id:5  , name:"Leopard                  ", category:"Mammal    ", image:"images/005.jpg", wiki:"Leopard"},
+  {id:6  , name:"Snow Leopard             ", category:"Mammal    ", image:"images/006.jpg", wiki:"Snow leopard"},
+  {id:7  , name:"Cougar                   ", category:"Mammal    ", image:"images/007.jpg", wiki:"Cougar"},
+  {id:8  , name:"Gray Wolf                ", category:"Mammal    ", image:"images/008.jpg", wiki:"Wolf"},
+  {id:9  , name:"Red Fox                  ", category:"Mammal    ", image:"images/009.jpg", wiki:"Red fox"},
+  {id:10 , name:"Arctic Fox               ", category:"Mammal    ", image:"images/010.jpg", wiki:"Arctic fox"},
+  {id:11 , name:"Fennec Fox               ", category:"Mammal    ", image:"images/011.jpg", wiki:"Fennec fox"},
+  {id:12 , name:"Brown Bear               ", category:"Mammal    ", image:"images/012.jpg", wiki:"Brown bear"},
+  {id:13 , name:"Polar Bear               ", category:"Mammal    ", image:"images/013.jpg", wiki:"Polar bear"},
+  {id:14 , name:"Giant Panda              ", category:"Mammal    ", image:"images/014.jpg", wiki:"Giant panda"},
+  {id:15 , name:"Sloth Bear               ", category:"Mammal    ", image:"images/015.jpg", wiki:"Sloth bear"},
+  {id:16 , name:"African Elephant         ", category:"Mammal    ", image:"images/016.jpg", wiki:"African bush elephant"},
+  {id:17 , name:"Asian Elephant           ", category:"Mammal    ", image:"images/017.jpg", wiki:"Asian elephant"},
+  {id:18 , name:"Rhinoceros               ", category:"Mammal    ", image:"images/018.jpg", wiki:"Rhinoceros"},
+  {id:19 , name:"Hippopotamus             ", category:"Mammal    ", image:"images/019.jpg", wiki:"Hippopotamus"},
+  {id:20 , name:"Giraffe                  ", category:"Mammal    ", image:"images/020.jpg", wiki:"Giraffe"},
+  {id:21 , name:"Zebra                    ", category:"Mammal    ", image:"images/021.jpg", wiki:"Plains zebra"},
+  {id:22 , name:"Chimpanzee               ", category:"Mammal    ", image:"images/022.jpg", wiki:"Chimpanzee"},
+  {id:23 , name:"Gorilla                  ", category:"Mammal    ", image:"images/023.jpg", wiki:"Western gorilla"},
+  {id:24 , name:"Orangutan                ", category:"Mammal    ", image:"images/024.jpg", wiki:"Bornean orangutan"},
+  {id:25 , name:"Ring-tailed Lemur        ", category:"Mammal    ", image:"images/025.jpg", wiki:"Ring-tailed lemur"},
+  {id:26 , name:"Moose                    ", category:"Mammal    ", image:"images/026.jpg", wiki:"Moose"},
+  {id:27 , name:"Reindeer                 ", category:"Mammal    ", image:"images/027.jpg", wiki:"Reindeer"},
+  {id:28 , name:"American Bison           ", category:"Mammal    ", image:"images/028.jpg", wiki:"American bison"},
+  {id:29 , name:"Kangaroo                 ", category:"Mammal    ", image:"images/029.jpg", wiki:"Kangaroo"},
+  {id:30 , name:"Red Kangaroo             ", category:"Mammal    ", image:"images/030.jpg", wiki:"Red kangaroo"},
+  {id:31 , name:"Tree Kangaroo            ", category:"Mammal    ", image:"images/031.jpg", wiki:"Tree-kangaroo"},
+  {id:32 , name:"Koala                    ", category:"Mammal    ", image:"images/032.jpg", wiki:"Koala"},
+  {id:33 , name:"Platypus                 ", category:"Mammal    ", image:"images/033.jpg", wiki:"Platypus"},
+  {id:34 , name:"Capybara                 ", category:"Mammal    ", image:"images/034.jpg", wiki:"Capybara"},
+  {id:35 , name:"Sloth                    ", category:"Mammal    ", image:"images/035.jpg", wiki:"Pale-throated sloth"},
+  {id:36 , name:"Anteater                 ", category:"Mammal    ", image:"images/036.jpg", wiki:"Anteater"},
+  {id:37 , name:"Meerkat                  ", category:"Mammal    ", image:"images/037.jpg", wiki:"Meerkat"},
+  {id:38 , name:"Honey Badger             ", category:"Mammal    ", image:"images/038.jpg", wiki:"Honey badger"},
+  {id:44 , name:"Bactrian Camel           ", category:"Mammal    ", image:"images/044.jpg", wiki:"Bactrian camel"},
+  {id:45 , name:"Llama                    ", category:"Mammal    ", image:"images/045.jpg", wiki:"Llama"},
+  {id:46 , name:"Alpaca                   ", category:"Mammal    ", image:"images/046.jpg", wiki:"Alpaca"},
+  {id:47 , name:"Red Panda                ", category:"Mammal    ", image:"images/047.jpg", wiki:"Red panda"},
+  {id:48 , name:"Beaver                   ", category:"Mammal    ", image:"images/048.jpg", wiki:"North American beaver"},
+  {id:49 , name:"Hedgehog                 ", category:"Mammal    ", image:"images/049.jpg", wiki:"European hedgehog"},
+  {id:50 , name:"Squirrel                 ", category:"Mammal    ", image:"images/050.jpg", wiki:"Red squirrel"},
+  {id:51 , name:"Chipmunk                 ", category:"Mammal    ", image:"images/051.jpg", wiki:"Eastern chipmunk"},
+  {id:52 , name:"Raccoon                  ", category:"Mammal    ", image:"images/052.jpg", wiki:"Raccoon"},
+  {id:53 , name:"Skunk                    ", category:"Mammal    ", image:"images/053.jpg", wiki:"Striped skunk"},
+  {id:54 , name:"Yak                      ", category:"Mammal    ", image:"images/054.jpg", wiki:"Yak"},
+  {id:55 , name:"Otter                    ", category:"Mammal    ", image:"images/055.jpg", wiki:"European otter"},
+  {id:56 , name:"Echidna                  ", category:"Mammal    ", image:"images/056.jpg", wiki:"Short-beaked echidna"},
+  {id:57 , name:"Wombat                   ", category:"Mammal    ", image:"images/057.jpg", wiki:"Wombat"},
+  {id:58 , name:"Tasmanian Devil          ", category:"Mammal    ", image:"images/058.jpg", wiki:"Tasmanian devil"},
+  {id:59 , name:"Opossum                  ", category:"Mammal    ", image:"images/059.jpg", wiki:"Virginia opossum"},
+  {id:60 , name:"Mongoose                 ", category:"Mammal    ", image:"images/060.jpg", wiki:"Mongoose"},
+  {id:61 , name:"Hyena                    ", category:"Mammal    ", image:"images/061.jpg", wiki:"Spotted hyena"},
+  {id:62 , name:"Howler Monkey            ", category:"Mammal    ", image:"images/062.jpg", wiki:"Howler monkey"},
+  {id:63 , name:"Spider Monkey            ", category:"Mammal    ", image:"images/063.jpg", wiki:"Spider monkey"},
+  {id:64 , name:"Gibbon                   ", category:"Mammal    ", image:"images/064.jpg", wiki:"Gibbon"},
+  {id:65 , name:"Baboon                   ", category:"Mammal    ", image:"images/065.jpg", wiki:"Hamadryas baboon"},
+  {id:106, name:"Deer                     ", category:"Mammal    ", image:"images/106.jpg", wiki:"Deer"},
+  {id:131, name:"Antelope                 ", category:"Mammal    ", image:"images/131.jpg", wiki:"Antelope"},
+  {id:134, name:"Mandrill                 ", category:"Mammal    ", image:"images/134.jpg", wiki:"Mandrill"},
+  {id:135, name:"Pangolin                 ", category:"Mammal    ", image:"images/135.jpg", wiki:"Pangolin"},
+  {id:136, name:"Okapi                    ", category:"Mammal    ", image:"images/136.jpg", wiki:"Okapi"},
+  {id:137, name:"Saiga Antelope           ", category:"Mammal    ", image:"images/137.jpg", wiki:"Saiga antelope"},
+  {id:138, name:"Fossa                    ", category:"Mammal    ", image:"images/138.jpg", wiki:"Fossa (animal)"},
+  {id:139, name:"Aye-aye                  ", category:"Mammal    ", image:"images/139.jpg", wiki:"Aye-aye"},
+  {id:140, name:"Numbat                   ", category:"Mammal    ", image:"images/140.jpg", wiki:"Numbat"},
+  {id:141, name:"Quokka                   ", category:"Mammal    ", image:"images/141.jpg", wiki:"Quokka"},
+  {id:142, name:"Tarsier                  ", category:"Mammal    ", image:"images/142.jpg", wiki:"Tarsier"},
+  {id:143, name:"Warthog                  ", category:"Mammal    ", image:"images/143.jpg", wiki:"Common warthog"},
+  {id:144, name:"Wild Boar                ", category:"Mammal    ", image:"images/144.jpg", wiki:"Wild boar"},
+  {id:145, name:"Aardvark                 ", category:"Mammal    ", image:"images/145.jpg", wiki:"Aardvark"},
+  {id:146, name:"Armadillo                ", category:"Mammal    ", image:"images/146.jpg", wiki:"Nine-banded armadillo"},
+  {id:147, name:"Porcupine                ", category:"Mammal    ", image:"images/147.jpg", wiki:"Porcupine"},
+  {id:148, name:"Caracal                  ", category:"Mammal    ", image:"images/148.jpg", wiki:"Caracal"},
+  {id:149, name:"Lynx                     ", category:"Mammal    ", image:"images/149.jpg", wiki:"Eurasian lynx"},
+  {id:150, name:"Serval                   ", category:"Mammal    ", image:"images/150.jpg", wiki:"Serval"},
+  {id:151, name:"Coyote                   ", category:"Mammal    ", image:"images/151.jpg", wiki:"Coyote"},
+  {id:152, name:"Wolverine                ", category:"Mammal    ", image:"images/152.jpg", wiki:"Wolverine"},
+  {id:153, name:"Sifaka                   ", category:"Mammal    ", image:"images/153.jpg", wiki:"Sifaka"},
+  {id:154, name:"Markhor                  ", category:"Mammal    ", image:"images/154.jpg", wiki:"Markhor"},
+  {id:155, name:"Takin                    ", category:"Mammal    ", image:"images/155.jpg", wiki:"Takin"},
+  {id:156, name:"Kinkajou                 ", category:"Mammal    ", image:"images/156.jpg", wiki:"Kinkajou"},
+  {id:157, name:"Ocelot                   ", category:"Mammal    ", image:"images/157.jpg", wiki:"Ocelot"},
+  {id:158, name:"Tapir                    ", category:"Mammal    ", image:"images/158.jpg", wiki:"South American tapir"},
+  {id:159, name:"Ibex                     ", category:"Mammal    ", image:"images/159.jpg", wiki:"Alpine ibex"},
+  {id:160, name:"Dromedary Camel          ", category:"Mammal    ", image:"images/160.jpg", wiki:"Dromedary"},
+  {id:161, name:"Chinchilla               ", category:"Mammal    ", image:"images/161.jpg", wiki:"Chinchilla"},
+  {id:162, name:"Aardwolf                 ", category:"Mammal    ", image:"images/162.jpg", wiki:"Aardwolf"},
+  {id:295, name:"African Wild Dog         ", category:"Mammal    ", image:"images/295.jpg", wiki:"African wild dog"},
+  {id:296, name:"Nilgai                   ", category:"Mammal    ", image:"images/296.jpg", wiki:"Nilgai"},
+  {id:297, name:"Gazelle                  ", category:"Mammal    ", image:"images/297.jpg", wiki:"Gazelle"},
+  {id:298, name:"Red Deer                 ", category:"Mammal    ", image:"images/298.jpg", wiki:"Red deer"},
+  {id:300, name:"Elk                      ", category:"Mammal    ", image:"images/300.jpg", wiki:"Elk"},
+  {id:39 , name:"Whale                    ", category:"Marine    ", image:"images/039.jpg", wiki:"Blue whale"},
+  {id:40 , name:"Whale                    ", category:"Marine    ", image:"images/040.jpg", wiki:"Humpback whale"},
+  {id:41 , name:"Dolphin                  ", category:"Marine    ", image:"images/041.jpg", wiki:"Common bottlenose dolphin"},
+  {id:42 , name:"Walrus                   ", category:"Marine    ", image:"images/042.jpg", wiki:"Walrus"},
+  {id:43 , name:"Sea Otter                ", category:"Marine    ", image:"images/043.jpg", wiki:"Sea otter"},
+  {id:114, name:"Great White Shark        ", category:"Marine    ", image:"images/114.jpg", wiki:"Great white shark"},
+  {id:115, name:"Whale Shark              ", category:"Marine    ", image:"images/115.jpg", wiki:"Whale shark"},
+  {id:116, name:"Hammerhead Shark         ", category:"Marine    ", image:"images/116.jpg", wiki:"Great hammerhead"},
+  {id:117, name:"Manta Ray                ", category:"Marine    ", image:"images/117.jpg", wiki:"Giant oceanic manta ray"},
+  {id:118, name:"Octopus                  ", category:"Marine    ", image:"images/118.jpg", wiki:"Giant Pacific octopus"},
+  {id:119, name:"Giant Squid              ", category:"Marine    ", image:"images/119.jpg", wiki:"Giant squid"},
+  {id:120, name:"Clownfish                ", category:"Marine    ", image:"images/120.jpg", wiki:"Clownfish"},
+  {id:121, name:"Seahorse                 ", category:"Marine    ", image:"images/121.jpg", wiki:"Common seahorse"},
+  {id:122, name:"Lionfish                 ", category:"Marine    ", image:"images/122.jpg", wiki:"Red lionfish"},
+  {id:123, name:"Moray Eel                ", category:"Marine    ", image:"images/123.jpg", wiki:"Giant moray"},
+  {id:124, name:"Starfish                 ", category:"Marine    ", image:"images/124.jpg", wiki:"Starfish"},
+  {id:125, name:"Crab                     ", category:"Marine    ", image:"images/125.jpg", wiki:"Red king crab"},
+  {id:174, name:"Seal                     ", category:"Marine    ", image:"images/174.jpg", wiki:"Harbor seal"},
+  {id:175, name:"Manatee                  ", category:"Marine    ", image:"images/175.jpg", wiki:"Manatee"},
+  {id:176, name:"Jellyfish                ", category:"Marine    ", image:"images/176.jpg", wiki:"Jellyfish"},
+  {id:177, name:"Narwhal                  ", category:"Marine    ", image:"images/177.jpg", wiki:"Narwhal"},
+  {id:91 , name:"Komodo Dragon            ", category:"Reptile   ", image:"images/091.jpg", wiki:"Komodo dragon"},
+  {id:92 , name:"Crocodile                ", category:"Reptile   ", image:"images/092.jpg", wiki:"Nile crocodile"},
+  {id:93 , name:"Alligator                ", category:"Reptile   ", image:"images/093.jpg", wiki:"American alligator"},
+  {id:94 , name:"Gharial                  ", category:"Reptile   ", image:"images/094.jpg", wiki:"Gharial"},
+  {id:95 , name:"Iguana                   ", category:"Reptile   ", image:"images/095.jpg", wiki:"Green iguana"},
+  {id:96 , name:"Chameleon                ", category:"Reptile   ", image:"images/096.jpg", wiki:"Veiled chameleon"},
+  {id:97 , name:"King Cobra               ", category:"Reptile   ", image:"images/097.jpg", wiki:"King cobra"},
+  {id:98 , name:"Rattlesnake              ", category:"Reptile   ", image:"images/098.jpg", wiki:"Eastern diamondback rattlesnake"},
+  {id:99 , name:"Gila Monster             ", category:"Reptile   ", image:"images/099.jpg", wiki:"Gila monster"},
+  {id:100, name:"Sea Turtle               ", category:"Reptile   ", image:"images/100.jpg", wiki:"Green sea turtle"},
+  {id:101, name:"Galápagos Tortoise       ", category:"Reptile   ", image:"images/101.jpg", wiki:"Galápagos tortoise"},
+  {id:102, name:"Boa Constrictor          ", category:"Reptile   ", image:"images/102.jpg", wiki:"Boa constrictor"},
+  {id:103, name:"Gecko                    ", category:"Reptile   ", image:"images/103.jpg", wiki:"Tokay gecko"},
+  {id:104, name:"Box Turtle               ", category:"Reptile   ", image:"images/104.jpg", wiki:"Common box turtle"},
+  {id:105, name:"Python                   ", category:"Reptile   ", image:"images/105.jpg", wiki:"Ball python"},
+  {id:173, name:"Tuatara                  ", category:"Reptile   ", image:"images/173.jpg", wiki:"Tuatara"},
+  {id:299, name:"Bearded Dragon           ", category:"Reptile   ", image:"images/299.jpg", wiki:"Eastern bearded dragon"},
 ];
 
 /* ─────────────────────────────────────────
@@ -361,9 +200,9 @@ const ANIMALS = [
 ───────────────────────────────────────── */
 const S = {
   // Profile
-  name: '', age: null, photo: null,
+  name: '', age: null, photo: 'images/cute_hyena.png',
   // Settings
-  mode: 'explorer',   // 'explorer' | 'championship'
+  mode: 'championship',   // default to championship
   duration: 60,       // seconds
   // Quiz runtime
   queue: [], idx: 0, seen: 0, log: [],
@@ -411,32 +250,26 @@ function showScreen(id) {
 function initProfile() {
   const nameIn  = document.getElementById('f-name');
   const btnCont = document.getElementById('btn-continue');
-  const zone    = document.getElementById('avatar-zone');
-  const fileIn  = document.getElementById('avatar-input');
   const prevImg = document.getElementById('avatar-preview');
-  const plac    = document.getElementById('avatar-placeholder');
+
+  // Lock cute hyena photo
+  S.photo = 'images/cute_hyena.png';
+  if (prevImg) {
+    prevImg.src = S.photo;
+    prevImg.style.display = 'block';
+  }
+
+  // Set dynamic question count badge
+  const countBadge = document.getElementById('question-count-badge');
+  if (countBadge) {
+    countBadge.textContent = ANIMALS.length;
+  }
 
   nameIn.addEventListener('input', () => {
     btnCont.disabled = nameIn.value.trim().length === 0;
     document.getElementById('name-err').textContent = '';
   });
   nameIn.addEventListener('keydown', e => { if (e.key === 'Enter' && !btnCont.disabled) toSettings(); });
-
-  zone.addEventListener('click',   () => fileIn.click());
-  zone.addEventListener('keydown', e => { if (e.key === 'Enter' || e.key === ' ') fileIn.click(); });
-
-  fileIn.addEventListener('change', e => {
-    const f = e.target.files[0];
-    if (!f) return;
-    const reader = new FileReader();
-    reader.onload = ev => {
-      S.photo = ev.target.result;
-      prevImg.src = ev.target.result;
-      prevImg.style.display = 'block';
-      plac.style.display = 'none';
-    };
-    reader.readAsDataURL(f);
-  });
 
   btnCont.addEventListener('click', toSettings);
 }
@@ -457,20 +290,6 @@ function toSettings() {
    SETTINGS SCREEN
 ───────────────────────────────────────── */
 function initSettings() {
-  // Mode toggle
-  document.querySelectorAll('.mode-card').forEach(card => {
-    card.addEventListener('click', () => {
-      document.querySelectorAll('.mode-card').forEach(c => {
-        c.classList.remove('selected', 'champ-mode');
-        c.setAttribute('aria-pressed', 'false');
-      });
-      card.classList.add('selected');
-      card.setAttribute('aria-pressed', 'true');
-      S.mode = card.dataset.mode;
-      if (S.mode === 'championship') card.classList.add('champ-mode');
-    });
-  });
-
   // Duration toggle
   document.querySelectorAll('.dur-btn').forEach(btn => {
     btn.addEventListener('click', () => {
@@ -545,31 +364,17 @@ function startCountdown() {
    QUIZ ENGINE
 ───────────────────────────────────────── */
 
-// Cached set of image IDs that actually exist locally
-let AVAILABLE_IDS = null;
-
-async function probeImages() {
-  if (AVAILABLE_IDS !== null) return AVAILABLE_IDS;
-  const results = await Promise.all(
-    ANIMALS.map(a => new Promise(resolve => {
-      const img = new Image();
-      img.onload  = () => resolve(a.id);
-      img.onerror = () => resolve(null);
-      img.src = a.image;
-    }))
-  );
-  AVAILABLE_IDS = new Set(results.filter(Boolean));
-  return AVAILABLE_IDS;
-}
-
-function buildQueue(availableIds) {
-  // Only include animals whose image actually exists
-  const pool = availableIds ? ANIMALS.filter(a => availableIds.has(a.id)) : ANIMALS;
+function buildQueue() {
+  const pool = ANIMALS;
   const seed = Math.floor(Date.now() / 1000);
   const shuffled = seededShuffle(pool, seed);
   // Repeat to fill any duration
   let q = [];
-  while (q.length < 5000) q = q.concat(shuffled);
+  if (shuffled.length > 0) {
+    while (q.length < 5000) {
+      q = q.concat(shuffled);
+    }
+  }
   return q;
 }
 
@@ -614,7 +419,7 @@ function startQuiz() {
 
   // Start timer after 300ms buffer
   setTimeout(() => {
-    S.timerId = setInterval(tickTimer, 200);
+    S.timerId = setInterval(tickTimer, 30);
     arena.onclick = advance;
   }, 300);
 }
@@ -648,6 +453,20 @@ function loadAnimal(idx) {
   const loader = document.getElementById('img-loader');
   document.getElementById('loader-icon').textContent = categoryEmoji(animal.category);
 
+  // Set kid-friendly category border color on card
+  const stack = document.querySelector('.img-stack');
+  if (stack) {
+    const borderColors = {
+      Mammal: '#ffd43b', // sunny yellow
+      Bird: '#339af0', // blue
+      Reptile: '#51cf66', // green
+      Amphibian: '#7048e8', // indigo
+      Marine: '#3bc9db', // teal
+      Insect: '#faa2c1' // pink
+    };
+    stack.style.borderColor = borderColors[animal.category] || '#ff6b6b';
+  }
+
   // Foreground A/B crossfade
   const imgA   = document.getElementById('img-a');
   const imgB   = document.getElementById('img-b');
@@ -672,12 +491,25 @@ function loadAnimal(idx) {
     prevBg.classList.add('faded');
     loader.classList.add('done');
     S.activeImg = S.activeImg === 'a' ? 'b' : 'a';
+    S.loadFailures = 0; // Reset failures on success
   };
 
   tmpImg.onerror = () => {
+    console.error('Failed to load image:', newSrc);
+    S.loadFailures = (S.loadFailures || 0) + 1;
+    if (S.loadFailures >= Math.min(S.queue.length, 50)) {
+      console.error('All animal images failed to load. Aborting loop.');
+      const loaderText = document.querySelector('.loader-text');
+      if (loaderText) {
+        loaderText.textContent = 'Error: Cannot load animal images!';
+      }
+      return;
+    }
     // Image missing — silently skip to next animal without counting it
     S.idx = (S.idx + 1) % S.queue.length;
-    loadAnimal(S.idx);
+    setTimeout(() => {
+      loadAnimal(S.idx);
+    }, 0);
   };
 
   loader.classList.remove('done');
@@ -727,7 +559,7 @@ function tickTimer() {
 function updateTimer() {
   const timeEl = document.getElementById('hud-time');
   const ring   = document.getElementById('ring-fill');
-  const secs   = Math.ceil(S.remaining);
+  const secs   = S.remaining.toFixed(1);
   timeEl.textContent = secs;
 
   const pct    = S.remaining / S.duration;
@@ -735,13 +567,13 @@ function updateTimer() {
   ring.style.strokeDashoffset = offset;
 
   if (pct < 0.2) {
-    ring.className = 'ring-fill ring-danger';
+    ring.setAttribute('class', 'ring-fill ring-danger');
     timeEl.className = 'hud-time danger';
   } else if (pct < 0.4) {
-    ring.className = 'ring-fill ring-warn';
+    ring.setAttribute('class', 'ring-fill ring-warn');
     timeEl.className = 'hud-time';
   } else {
-    ring.className = 'ring-fill';
+    ring.setAttribute('class', 'ring-fill');
     timeEl.className = 'hud-time';
   }
 }
@@ -755,27 +587,17 @@ function endQuiz() {
   arena.onclick = null;
   arena.onkeydown = null;
 
-  // Update best
-  const key = S.duration;
-  const prev = S.bests[key] || 0;
-  if (S.seen > prev) {
-    S.bests[key] = S.seen;
-    try { localStorage.setItem('wv_bests', JSON.stringify(S.bests)); } catch (_) {}
-  }
-
   buildResults();
 }
 
 /* ─────────────────────────────────────────
    RESULTS
-───────────────────────────────────────── */
+ ───────────────────────────────────────── */
 function buildResults() {
   const count   = S.seen;
   const dur     = S.duration;
   const perMin  = ((count / dur) * 60).toFixed(1);
   const avgSec  = count > 0 ? (dur / count).toFixed(1) : '—';
-  const best    = S.bests[dur] || count;
-  const isNewBest = count > 0 && count >= (S.bests[dur] || 0);
 
   // Trophy + message
   let emoji = '🌱', title = 'Keep Going!', sub = 'Every session sharpens your eye.';
@@ -785,19 +607,15 @@ function buildResults() {
   else if (count >= 25) { emoji = '🥉'; title = 'Great Session!';           sub = 'Solid recognition skills building.'; }
   else if (count >= 10) { emoji = '🌿'; title = 'Good Effort!';             sub = 'Keep exploring the animal kingdom.'; }
 
-  if (isNewBest && count > 0) { title = '🎉 New Personal Best! ' + emoji; emoji = '🎉'; }
-
   document.getElementById('trophy-icon').textContent  = emoji;
   document.getElementById('results-title').textContent = title;
   document.getElementById('results-sub').textContent   = sub;
   document.getElementById('score-num').textContent     = count;
   document.getElementById('score-rate').textContent    = `${perMin}/min`;
   document.getElementById('ms-avg').textContent        = count > 0 ? `${avgSec}s` : '—';
-  document.getElementById('ms-best').textContent       = best;
   document.getElementById('ms-dur').textContent        = fmtDur(dur);
 
   renderBreakdown();
-  renderTips(count);
 
   showScreen('screen-results');
   if (count >= 10) launchConfetti();
@@ -834,30 +652,7 @@ function renderBreakdown() {
   });
 }
 
-function renderTips(count) {
-  const el   = document.getElementById('tips-body');
-  const tips = [];
-  if (count === 0) {
-    tips.push("Tap anywhere on the image to advance to the next animal.");
-    tips.push("Use Explorer Mode so you can see the answers as you learn.");
-  } else if (count < 10) {
-    tips.push("Study each category separately — start with Mammals, they're most common.");
-    tips.push("Focus on distinctive features: coat patterns, bill shapes, body proportions.");
-  } else if (count < 25) {
-    tips.push("Distinguish similar-looking species: Snow Leopard vs Leopard vs Jaguar.");
-    tips.push("Learn geographic clues — many species are region-exclusive.");
-  } else if (count < 40) {
-    tips.push("Practice less-familiar groups: Amphibians, Marine animals, and Insects.");
-    tips.push("Try Championship Mode to test your real knowledge without answer hints.");
-  } else if (count < 60) {
-    tips.push("At this level, focus on obscure species and rare regional variants.");
-    tips.push("World-class contestants average 60–80 per minute — you're getting close!");
-  } else {
-    tips.push("🌟 Extraordinary! Share your score and challenge fellow wildlife enthusiasts.");
-    tips.push("Consider exploring scientific names to deepen your taxonomy knowledge.");
-  }
-  el.innerHTML = tips.map(t => `<div class="tip-row"><span class="tip-dot">▸</span><span>${t}</span></div>`).join('');
-}
+// Tips function removed to keep summary generic.
 
 /* ─────────────────────────────────────────
    CONFETTI (canvas-based)
@@ -917,12 +712,9 @@ function initResults() {
 /* ─────────────────────────────────────────
    QUIZ START (single canonical function)
 ───────────────────────────────────────── */
-async function doStartQuiz() {
-  // Probe which images actually exist so the queue only has real photos
-  const availIds = await probeImages();
-
+function doStartQuiz() {
   S._startTime = Date.now();
-  S.queue = buildQueue(availIds);
+  S.queue = buildQueue();
   S.idx  = 0; S.seen = 0; S.log = [];
   S.remaining = S.duration;
   S.isRunning = true;
@@ -959,7 +751,7 @@ async function doStartQuiz() {
 
   setTimeout(() => {
     S._startTime = Date.now(); // accurate start after UI settles
-    S.timerId = setInterval(tickTimer, 200);
+    S.timerId = setInterval(tickTimer, 30);
     arena.onclick = advance;
   }, 400);
 }
@@ -992,9 +784,7 @@ document.addEventListener('DOMContentLoaded', () => {
   // Re-wire launch buttons to the canonical functions
   document.getElementById('btn-launch').addEventListener('click', doCountdown);
   document.getElementById('btn-play-again').addEventListener('click', doCountdown);
+  document.getElementById('btn-end-early').addEventListener('click', endQuiz);
 
   showScreen('screen-profile');
-
-  // Warm up image probe in the background so it's cached before launch
-  probeImages();
 });

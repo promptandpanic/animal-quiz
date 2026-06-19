@@ -3,18 +3,18 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>WildVision — Wildlife Identification Championship</title>
-  <meta name="description" content="A world-championship-level wildlife identification quiz. Identify 300+ species of wild animals, birds, reptiles & more.">
+  <title>Wildlife Quiz</title>
+  <meta name="description" content="A fun and friendly wildlife identification quiz. Identify 130+ species of wild animals, birds, reptiles & more.">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800;900&family=Fredoka:wght@400;500;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
 <!-- ══════════════════════════════════════
      SCREEN 1 — PROFILE SETUP
-══════════════════════════════════════ -->
+ ══════════════════════════════════════ -->
 <section id="screen-profile" class="screen active" aria-label="Profile Setup">
   <div class="bg-orbs">
     <div class="orb orb-1"></div>
@@ -22,35 +22,20 @@
     <div class="orb orb-3"></div>
   </div>
   <div class="profile-wrap">
+
     <div class="brand">
-      <div class="brand-logo" aria-hidden="true">
-        <svg viewBox="0 0 48 48" fill="none">
-          <ellipse cx="24" cy="24" rx="22" ry="13" stroke="currentColor" stroke-width="3"/>
-          <circle cx="24" cy="24" r="8" fill="currentColor"/>
-          <circle cx="24" cy="24" r="4" fill="#08080e"/>
-          <circle cx="22" cy="22" r="1.5" fill="rgba(255,255,255,0.6)"/>
-        </svg>
-      </div>
-      <h1 class="brand-name">WildVision</h1>
-      <p class="brand-tagline">Wildlife Identification Championship</p>
+      <h1 class="brand-name">Wildlife Quiz</h1>
+      <p class="brand-subtitle"><span id="question-count-badge">0</span> animals to identify!</p>
     </div>
 
     <div class="glass-card profile-card">
       <h2 class="card-heading">Create Your Profile</h2>
       <p class="card-sub">Tell us who's competing today</p>
 
-      <div id="avatar-zone" class="avatar-zone" role="button" tabindex="0" aria-label="Upload profile photo">
+      <div id="avatar-zone" class="avatar-zone static-avatar" aria-label="Cute Hyena Avatar">
         <div class="avatar-ring">
-          <img id="avatar-preview" class="avatar-preview" src="" alt="Profile Photo" style="display:none">
-          <div id="avatar-placeholder" class="avatar-placeholder">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" width="26" height="26">
-              <path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"/>
-              <circle cx="12" cy="13" r="4"/>
-            </svg>
-            <span>Add Photo</span>
-          </div>
+          <img id="avatar-preview" class="avatar-preview" src="images/cute_hyena.png" alt="Cute Hyena Avatar" style="display:block">
         </div>
-        <input type="file" id="avatar-input" accept="image/*" hidden>
       </div>
 
       <div class="fields">
@@ -74,11 +59,7 @@
       </button>
     </div>
 
-    <div class="info-chips">
-      <div class="chip">🌍 300+ species</div>
-      <div class="chip">🦁 6 categories</div>
-      <div class="chip">🏆 Championship ready</div>
-    </div>
+
   </div>
 </section>
 
@@ -103,31 +84,6 @@
     <div class="settings-intro">
       <h2>Configure Session</h2>
       <p>Choose your mode and duration</p>
-    </div>
-
-    <!-- Mode -->
-    <div class="settings-section">
-      <div class="section-label">Mode</div>
-      <div class="mode-grid">
-        <button class="mode-card selected" id="mode-explorer" data-mode="explorer" aria-pressed="true">
-          <span class="mode-emoji">🌿</span>
-          <div class="mode-body">
-            <div class="mode-name">Explorer Mode</div>
-            <div class="mode-desc">Answer shown at the corner — ideal for learning &amp; practice</div>
-          </div>
-          <span class="mode-tag mode-tag-teal">Practice</span>
-          <span class="mode-tick" aria-hidden="true">✓</span>
-        </button>
-        <button class="mode-card" id="mode-championship" data-mode="championship" aria-pressed="false">
-          <span class="mode-emoji">🏆</span>
-          <div class="mode-body">
-            <div class="mode-name">Championship Mode</div>
-            <div class="mode-desc">No answers shown — true test of your wildlife knowledge</div>
-          </div>
-          <span class="mode-tag mode-tag-gold">Official</span>
-          <span class="mode-tick" aria-hidden="true">✓</span>
-        </button>
-      </div>
     </div>
 
     <!-- Duration -->
@@ -192,6 +148,8 @@
 
     <div class="hud-badge" id="hud-badge">Explorer</div>
 
+    <button id="btn-end-early" class="btn-end-early" aria-label="End Quiz early">End Quiz 🛑</button>
+
     <div class="hud-count" aria-label="Animals seen">
       <span class="hud-count-n" id="hud-count-n">0</span>
       <span class="hud-count-l">seen</span>
@@ -228,6 +186,14 @@
       <span>tap anywhere to advance</span>
     </div>
   </div>
+
+  <!-- Thinking Hyena Widget (visible ONLY during the quiz) -->
+  <div class="thinking-hyena-widget" id="thinking-hyena" aria-hidden="true">
+    <div class="thinking-hyena-inner">
+      <div class="lightbulb-icon">💡</div>
+      <img src="images/cute_hyena.png" alt="Thinking Hyena" class="hyena-avatar-small">
+    </div>
+  </div>
 </section>
 
 <!-- ══════════════════════════════════════
@@ -239,7 +205,7 @@
     <div class="results-hero">
       <div class="trophy-icon" id="trophy-icon">🏆</div>
       <h2 class="results-title" id="results-title">Session Complete!</h2>
-      <p class="results-sub" id="results-sub">Great effort today!</p>
+      <div class="results-sub" id="results-sub">Great effort today!</div>
     </div>
 
     <div class="score-card">
@@ -263,11 +229,6 @@
         <div class="mini-lbl">avg per animal</div>
       </div>
       <div class="mini-stat">
-        <div class="mini-icon">🥇</div>
-        <div class="mini-val" id="ms-best">0</div>
-        <div class="mini-lbl">personal best</div>
-      </div>
-      <div class="mini-stat">
         <div class="mini-icon">⏱</div>
         <div class="mini-val" id="ms-dur">60s</div>
         <div class="mini-lbl">session time</div>
@@ -280,11 +241,7 @@
       <div id="breakdown-rows"></div>
     </div>
 
-    <!-- Improvement tips -->
-    <div class="tips-card" id="tips-card">
-      <div class="tips-hd">💡 Improvement Tips</div>
-      <div class="tips-body" id="tips-body"></div>
-    </div>
+
 
     <div class="results-actions">
       <button id="btn-to-settings" class="btn btn-secondary">
