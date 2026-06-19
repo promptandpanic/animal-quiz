@@ -795,7 +795,7 @@ function buildResults() {
   else if (count >= 25) { emoji = '🥉'; title = 'Great Session!';           sub = 'Solid recognition skills building.'; }
   else if (count >= 10) { emoji = '🌿'; title = 'Good Effort!';             sub = 'Keep exploring the animal kingdom.'; }
 
-  document.getElementById('trophy-icon').textContent  = emoji;
+  document.getElementById('results-trophy-badge').textContent  = emoji;
   document.getElementById('results-title').textContent = title;
   document.getElementById('results-sub').textContent   = sub;
   document.getElementById('score-num').textContent     = count;

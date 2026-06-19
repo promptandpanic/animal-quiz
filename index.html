@@ -21,10 +21,10 @@
     <div class="orb orb-2"></div>
     <div class="orb orb-3"></div>
     <div class="particle p1">✨</div>
-    <img class="particle p2 image-particle" src="images/cute_hyena.png" alt="hyena">
+    <div class="particle p2">🐾</div>
     <div class="particle p3">🍃</div>
-    <div class="particle p4">✨</div>
-    <img class="particle p5 image-particle" src="images/cute_hyena.png" alt="hyena">
+    <div class="particle p4">🦁</div>
+    <div class="particle p5">🐸</div>
     <div class="particle p6">🐾</div>
   </div>
 
@@ -89,8 +89,11 @@
 
   <div class="settings-body">
     <div class="settings-intro">
-      <h2>Configure Session</h2>
-      <p>Choose your mode and duration</p>
+      <img src="images/cute_hyena.png" class="settings-mascot-img" alt="Mascot Guide">
+      <div>
+        <h2>Configure Session</h2>
+        <p>Choose your mode and duration</p>
+      </div>
     </div>
 
     <!-- Mode -->
@@ -252,7 +255,10 @@
   <canvas id="confetti-canvas" class="confetti-canvas" aria-hidden="true"></canvas>
   <div class="results-body">
     <div class="results-hero">
-      <div class="trophy-icon" id="trophy-icon">🏆</div>
+      <div class="results-mascot-wrap">
+        <img src="images/cute_hyena.png" class="results-mascot-img" id="results-mascot-pic" alt="Celebrating Hyena">
+        <div class="results-trophy-badge" id="results-trophy-badge">🏆</div>
+      </div>
       <h2 class="results-title" id="results-title">Session Complete!</h2>
       <div class="results-sub" id="results-sub">Great effort today!</div>
     </div>
