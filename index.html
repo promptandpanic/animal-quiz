@@ -20,12 +20,23 @@
     <div class="orb orb-1"></div>
     <div class="orb orb-2"></div>
     <div class="orb orb-3"></div>
+    <div class="particle p1">✨</div>
+    <div class="particle p2">🎈</div>
+    <div class="particle p3">🍃</div>
+    <div class="particle p4">✨</div>
+    <div class="particle p5">🎈</div>
+    <div class="particle p6">🍃</div>
   </div>
+
+  <div class="profile-cover-art">
+    <img src="images/savanna_animals.png?v=2" alt="Savanna Animals Cover">
+  </div>
+
   <div class="profile-wrap">
 
     <div class="brand">
       <h1 class="brand-name">Wildlife Quiz</h1>
-      <p class="brand-subtitle"><span id="question-count-badge">0</span> animals to identify!</p>
+      <p class="brand-subtitle">Become a Wildlife Champion! <span id="question-count-badge">200</span> species to discover!</p>
     </div>
 
     <div class="glass-card profile-card">
@@ -41,7 +52,7 @@
       <div class="fields">
         <div class="field-wrap">
           <input type="text" id="f-name" class="field-input" placeholder=" " maxlength="40" autocomplete="name">
-          <label class="field-label" for="f-name">Full Name *</label>
+          <label class="field-label" for="f-name">Name *</label>
         </div>
         <div class="field-wrap">
           <input type="number" id="f-age" class="field-input" placeholder=" " min="3" max="120">
@@ -84,6 +95,31 @@
     <div class="settings-intro">
       <h2>Configure Session</h2>
       <p>Choose your mode and duration</p>
+    </div>
+
+    <!-- Mode -->
+    <div class="settings-section">
+      <div class="section-label">Mode</div>
+      <div class="mode-grid">
+        <button class="mode-card selected" id="mode-explorer" data-mode="explorer" aria-pressed="true">
+          <span class="mode-emoji">🌿</span>
+          <div class="mode-body">
+            <div class="mode-name">Practice Mode</div>
+            <div class="mode-desc">Answers shown in the bottom right corner — ideal for learning</div>
+          </div>
+          <span class="mode-tag mode-tag-teal">Practice</span>
+          <span class="mode-tick" aria-hidden="true">✓</span>
+        </button>
+        <button class="mode-card" id="mode-championship" data-mode="championship" aria-pressed="false">
+          <span class="mode-emoji">🏆</span>
+          <div class="mode-body">
+            <div class="mode-name">Championship Mode</div>
+            <div class="mode-desc">No answers shown — true test of wildlife knowledge</div>
+          </div>
+          <span class="mode-tag mode-tag-gold">Official</span>
+          <span class="mode-tick" aria-hidden="true">✓</span>
+        </button>
+      </div>
     </div>
 
     <!-- Duration -->

@@ -194,6 +194,23 @@ ANIMALS = [
     (105, "Python                   ", "Ball python"),
     (173, "Tuatara                  ", "Tuatara"),
     (299, "Bearded Dragon           ", "Eastern bearded dragon"),
+    (301, "Wallaby                  ", "Wallaby"),
+    (302, "Capuchin Monkey          ", "Capuchin monkey"),
+    (303, "Emperor Tamarin          ", "Emperor tamarin"),
+    (304, "Bobcat                   ", "Bobcat"),
+    (305, "Ferret                   ", "Ferret"),
+    (306, "Binturong                ", "Binturong"),
+    (307, "Golden Eagle             ", "Golden eagle"),
+    (308, "Hawk                     ", "Hawk"),
+    (309, "Heron                    ", "Heron"),
+    (310, "Osprey                   ", "Osprey"),
+    (311, "Frilled Lizard           ", "Frill-necked lizard"),
+    (312, "Monitor Lizard           ", "Monitor lizard"),
+    (313, "Anaconda                 ", "Anaconda"),
+    (314, "Stingray                 ", "Stingray"),
+    (315, "Tiger Shark              ", "Tiger shark"),
+    (316, "Lobster                  ", "Lobster"),
+    (317, "Cuttlefish               ", "Cuttlefish"),
 ]
 
 HEADERS = {
@@ -257,6 +274,23 @@ def download_file(url, path):
             return False, f"HTTP {e.code}"
         except Exception as e:
             return False, str(e)[:80]
+
+    # Fallback to original image if thumb sizing fails
+    if "/commons/thumb/" in url:
+        original_url = url.replace("/commons/thumb/", "/commons/")
+        if original_url.count("/") >= 8:
+            original_url = "/".join(original_url.split("/")[:-1])
+            try:
+                req = urllib.request.Request(original_url, headers=HEADERS)
+                with urllib.request.urlopen(req, timeout=25) as resp:
+                    data = resp.read()
+                if len(data) >= 1000:
+                    with open(path, 'wb') as f:
+                        f.write(data)
+                    return True, f"{len(data)//1024} KB (original)"
+            except Exception:
+                pass
+
     return False, "all size variants failed"
 
 def run():

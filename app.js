@@ -193,6 +193,23 @@ const ANIMALS = [
   {id:105, name:"Python                   ", category:"Reptile   ", image:"images/105.jpg", wiki:"Ball python"},
   {id:173, name:"Tuatara                  ", category:"Reptile   ", image:"images/173.jpg", wiki:"Tuatara"},
   {id:299, name:"Bearded Dragon           ", category:"Reptile   ", image:"images/299.jpg", wiki:"Eastern bearded dragon"},
+  {id:301, name:"Wallaby                  ", category:"Mammal    ", image:"images/301.jpg", wiki:"Wallaby"},
+  {id:302, name:"Capuchin Monkey          ", category:"Mammal    ", image:"images/302.jpg", wiki:"Capuchin monkey"},
+  {id:303, name:"Emperor Tamarin          ", category:"Mammal    ", image:"images/303.jpg", wiki:"Emperor tamarin"},
+  {id:304, name:"Bobcat                   ", category:"Mammal    ", image:"images/304.jpg", wiki:"Bobcat"},
+  {id:305, name:"Ferret                   ", category:"Mammal    ", image:"images/305.jpg", wiki:"Ferret"},
+  {id:306, name:"Binturong                ", category:"Mammal    ", image:"images/306.jpg", wiki:"Binturong"},
+  {id:307, name:"Golden Eagle             ", category:"Bird      ", image:"images/307.jpg", wiki:"Golden eagle"},
+  {id:308, name:"Hawk                     ", category:"Bird      ", image:"images/308.jpg", wiki:"Hawk"},
+  {id:309, name:"Heron                    ", category:"Bird      ", image:"images/309.jpg", wiki:"Heron"},
+  {id:310, name:"Osprey                   ", category:"Bird      ", image:"images/310.jpg", wiki:"Osprey"},
+  {id:311, name:"Frilled Lizard           ", category:"Reptile   ", image:"images/311.jpg", wiki:"Frill-necked lizard"},
+  {id:312, name:"Monitor Lizard           ", category:"Reptile   ", image:"images/312.jpg", wiki:"Monitor lizard"},
+  {id:313, name:"Anaconda                 ", category:"Reptile   ", image:"images/313.jpg", wiki:"Anaconda"},
+  {id:314, name:"Stingray                 ", category:"Marine    ", image:"images/314.jpg", wiki:"Stingray"},
+  {id:315, name:"Tiger Shark              ", category:"Marine    ", image:"images/315.jpg", wiki:"Tiger shark"},
+  {id:316, name:"Lobster                  ", category:"Marine    ", image:"images/316.jpg", wiki:"Lobster"},
+  {id:317, name:"Cuttlefish               ", category:"Marine    ", image:"images/317.jpg", wiki:"Cuttlefish"},
 ];
 
 /* ─────────────────────────────────────────
@@ -202,7 +219,7 @@ const S = {
   // Profile
   name: '', age: null, photo: 'images/cute_hyena.png',
   // Settings
-  mode: 'championship',   // default to championship
+  mode: 'explorer',   // default to explorer
   duration: 60,       // seconds
   // Quiz runtime
   queue: [], idx: 0, seen: 0, log: [],
@@ -290,6 +307,22 @@ function toSettings() {
    SETTINGS SCREEN
 ───────────────────────────────────────── */
 function initSettings() {
+  // Mode selection cards
+  document.querySelectorAll('.mode-card').forEach(card => {
+    card.addEventListener('click', () => {
+      document.querySelectorAll('.mode-card').forEach(c => {
+        c.classList.remove('selected', 'champ-mode');
+        c.setAttribute('aria-pressed', 'false');
+      });
+      card.classList.add('selected');
+      card.setAttribute('aria-pressed', 'true');
+      S.mode = card.dataset.mode;
+      if (S.mode === 'championship') {
+        card.classList.add('champ-mode');
+      }
+    });
+  });
+
   // Duration toggle
   document.querySelectorAll('.dur-btn').forEach(btn => {
     btn.addEventListener('click', () => {
@@ -659,42 +692,108 @@ function renderBreakdown() {
 ───────────────────────────────────────── */
 function launchConfetti() {
   const canvas = document.getElementById('confetti-canvas');
-  const ctx    = canvas.getContext('2d');
+  if (!canvas) return;
+  const ctx = canvas.getContext('2d');
+  
   canvas.width  = window.innerWidth;
   canvas.height = window.innerHeight;
 
-  const COLORS = ['#7c3aed','#f59e0b','#06b6d4','#10b981','#ec4899','#f1f5f9'];
-  const pieces = Array.from({length: 100}, () => ({
-    x: Math.random() * canvas.width,
-    y: Math.random() * -canvas.height,
-    w: 6 + Math.random() * 10,
-    h: 3 + Math.random() * 6,
-    c: COLORS[Math.floor(Math.random() * COLORS.length)],
-    r: Math.random() * Math.PI * 2,
-    vx: (Math.random() - 0.5) * 2,
-    vy: 2 + Math.random() * 4,
-    vr: (Math.random() - 0.5) * 0.2,
-  }));
+  const hyenaImg = new Image();
+  hyenaImg.src = 'images/cute_hyena.png';
 
-  let frame = 0;
-  const MAX = 180;
+  const COLORS = ['#7c3aed','#f59e0b','#06b6d4','#10b981','#ec4899','#f1f5f9'];
+  const pieces = [];
+
+  // Spawn 30 hyenas
+  for (let i = 0; i < 30; i++) {
+    const size = 40 + Math.random() * 20;
+    pieces.push({
+      type: 'hyena',
+      x: Math.random() * (canvas.width - size) + size / 2,
+      y: Math.random() * (canvas.height - size) + size / 2,
+      w: size,
+      h: size,
+      vx: (Math.random() - 0.5) * 6,
+      vy: (Math.random() - 0.5) * 6,
+      r: Math.random() * Math.PI * 2,
+      vr: (Math.random() - 0.5) * 0.05
+    });
+  }
+
+  // Spawn 60 colorful confetti shapes
+  for (let i = 0; i < 60; i++) {
+    const w = 8 + Math.random() * 8;
+    const h = 4 + Math.random() * 6;
+    pieces.push({
+      type: 'confetti',
+      x: Math.random() * canvas.width,
+      y: Math.random() * canvas.height,
+      w: w,
+      h: h,
+      c: COLORS[Math.floor(Math.random() * COLORS.length)],
+      vx: (Math.random() - 0.5) * 4,
+      vy: (Math.random() - 0.5) * 4,
+      r: Math.random() * Math.PI * 2,
+      vr: (Math.random() - 0.5) * 0.1
+    });
+  }
 
   const draw = () => {
+    // Only continue animation if the results screen is active
+    const resultsScreen = document.getElementById('screen-results');
+    if (!resultsScreen || !resultsScreen.classList.contains('active')) {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      return;
+    }
+
+    if (canvas.width !== window.innerWidth || canvas.height !== window.innerHeight) {
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
+    }
+
     ctx.clearRect(0, 0, canvas.width, canvas.height);
+
     pieces.forEach(p => {
       ctx.save();
       ctx.translate(p.x, p.y);
       ctx.rotate(p.r);
-      ctx.fillStyle = p.c;
-      ctx.globalAlpha = Math.max(0, 1 - frame / MAX);
-      ctx.fillRect(-p.w / 2, -p.h / 2, p.w, p.h);
+
+      if (p.type === 'hyena') {
+        ctx.drawImage(hyenaImg, -p.w / 2, -p.h / 2, p.w, p.h);
+      } else {
+        ctx.fillStyle = p.c;
+        ctx.fillRect(-p.w / 2, -p.h / 2, p.w, p.h);
+      }
       ctx.restore();
-      p.x += p.vx; p.y += p.vy; p.r += p.vr;
+
+      // Update positions
+      p.x += p.vx;
+      p.y += p.vy;
+      p.r += p.vr;
+
+      // Bounce off screen boundaries
+      const sizeX = p.w;
+      const sizeY = p.h;
+      if (p.x < sizeX / 2) {
+        p.x = sizeX / 2;
+        p.vx = -p.vx;
+      } else if (p.x > canvas.width - sizeX / 2) {
+        p.x = canvas.width - sizeX / 2;
+        p.vx = -p.vx;
+      }
+
+      if (p.y < sizeY / 2) {
+        p.y = sizeY / 2;
+        p.vy = -p.vy;
+      } else if (p.y > canvas.height - sizeY / 2) {
+        p.y = canvas.height - sizeY / 2;
+        p.vy = -p.vy;
+      }
     });
-    frame++;
-    if (frame < MAX) requestAnimationFrame(draw);
-    else ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+    requestAnimationFrame(draw);
   };
+
   requestAnimationFrame(draw);
 }
 
