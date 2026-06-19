@@ -295,7 +295,7 @@ function toSettings() {
   const v = document.getElementById('f-name').value.trim();
   if (!v) { document.getElementById('name-err').textContent = 'Please enter your name.'; return; }
   S.name = v;
-  S.age  = parseInt(document.getElementById('f-age').value) || null;
+  S.age  = null;
   // Load best scores
   try { S.bests = JSON.parse(localStorage.getItem('wv_bests') || '{}'); } catch (_) {}
   populateChip();
