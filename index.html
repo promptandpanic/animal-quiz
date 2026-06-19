@@ -1,0 +1,310 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>WildVision — Wildlife Identification Championship</title>
+  <meta name="description" content="A world-championship-level wildlife identification quiz. Identify 300+ species of wild animals, birds, reptiles & more.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<!-- ══════════════════════════════════════
+     SCREEN 1 — PROFILE SETUP
+══════════════════════════════════════ -->
+<section id="screen-profile" class="screen active" aria-label="Profile Setup">
+  <div class="bg-orbs">
+    <div class="orb orb-1"></div>
+    <div class="orb orb-2"></div>
+    <div class="orb orb-3"></div>
+  </div>
+  <div class="profile-wrap">
+    <div class="brand">
+      <div class="brand-logo" aria-hidden="true">
+        <svg viewBox="0 0 48 48" fill="none">
+          <ellipse cx="24" cy="24" rx="22" ry="13" stroke="currentColor" stroke-width="3"/>
+          <circle cx="24" cy="24" r="8" fill="currentColor"/>
+          <circle cx="24" cy="24" r="4" fill="#08080e"/>
+          <circle cx="22" cy="22" r="1.5" fill="rgba(255,255,255,0.6)"/>
+        </svg>
+      </div>
+      <h1 class="brand-name">WildVision</h1>
+      <p class="brand-tagline">Wildlife Identification Championship</p>
+    </div>
+
+    <div class="glass-card profile-card">
+      <h2 class="card-heading">Create Your Profile</h2>
+      <p class="card-sub">Tell us who's competing today</p>
+
+      <div id="avatar-zone" class="avatar-zone" role="button" tabindex="0" aria-label="Upload profile photo">
+        <div class="avatar-ring">
+          <img id="avatar-preview" class="avatar-preview" src="" alt="Profile Photo" style="display:none">
+          <div id="avatar-placeholder" class="avatar-placeholder">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" width="26" height="26">
+              <path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"/>
+              <circle cx="12" cy="13" r="4"/>
+            </svg>
+            <span>Add Photo</span>
+          </div>
+        </div>
+        <input type="file" id="avatar-input" accept="image/*" hidden>
+      </div>
+
+      <div class="fields">
+        <div class="field-wrap">
+          <input type="text" id="f-name" class="field-input" placeholder=" " maxlength="40" autocomplete="name">
+          <label class="field-label" for="f-name">Full Name *</label>
+        </div>
+        <div class="field-wrap">
+          <input type="number" id="f-age" class="field-input" placeholder=" " min="3" max="120">
+          <label class="field-label" for="f-age">Age (optional)</label>
+        </div>
+      </div>
+
+      <p id="name-err" class="field-err" role="alert"></p>
+
+      <button id="btn-continue" class="btn btn-primary btn-full" disabled>
+        Continue
+        <svg viewBox="0 0 20 20" fill="currentColor" width="18" height="18">
+          <path fill-rule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z"/>
+        </svg>
+      </button>
+    </div>
+
+    <div class="info-chips">
+      <div class="chip">🌍 300+ species</div>
+      <div class="chip">🦁 6 categories</div>
+      <div class="chip">🏆 Championship ready</div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════
+     SCREEN 2 — SETTINGS
+══════════════════════════════════════ -->
+<section id="screen-settings" class="screen" aria-label="Session Settings">
+  <header class="settings-header">
+    <button id="btn-back" class="btn-icon" aria-label="Back to profile">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" width="18" height="18">
+        <path d="M19 12H5M12 19l-7-7 7-7"/>
+      </svg>
+    </button>
+    <div class="player-chip">
+      <div class="chip-av" id="chip-av"></div>
+      <span id="chip-name"></span>
+    </div>
+    <div style="width:40px"></div>
+  </header>
+
+  <div class="settings-body">
+    <div class="settings-intro">
+      <h2>Configure Session</h2>
+      <p>Choose your mode and duration</p>
+    </div>
+
+    <!-- Mode -->
+    <div class="settings-section">
+      <div class="section-label">Mode</div>
+      <div class="mode-grid">
+        <button class="mode-card selected" id="mode-explorer" data-mode="explorer" aria-pressed="true">
+          <span class="mode-emoji">🌿</span>
+          <div class="mode-body">
+            <div class="mode-name">Explorer Mode</div>
+            <div class="mode-desc">Answer shown at the corner — ideal for learning &amp; practice</div>
+          </div>
+          <span class="mode-tag mode-tag-teal">Practice</span>
+          <span class="mode-tick" aria-hidden="true">✓</span>
+        </button>
+        <button class="mode-card" id="mode-championship" data-mode="championship" aria-pressed="false">
+          <span class="mode-emoji">🏆</span>
+          <div class="mode-body">
+            <div class="mode-name">Championship Mode</div>
+            <div class="mode-desc">No answers shown — true test of your wildlife knowledge</div>
+          </div>
+          <span class="mode-tag mode-tag-gold">Official</span>
+          <span class="mode-tick" aria-hidden="true">✓</span>
+        </button>
+      </div>
+    </div>
+
+    <!-- Duration -->
+    <div class="settings-section">
+      <div class="section-label">Duration</div>
+      <div class="dur-row" role="group" aria-label="Duration selection">
+        <button class="dur-btn" data-sec="30">30 sec</button>
+        <button class="dur-btn selected" data-sec="60">1 min</button>
+        <button class="dur-btn" data-sec="120">2 min</button>
+        <button class="dur-btn" data-sec="180">3 min</button>
+        <button class="dur-btn" data-sec="300">5 min</button>
+        <button class="dur-btn" data-sec="600">10 min</button>
+      </div>
+    </div>
+
+    <!-- Best Score -->
+    <div id="best-banner" class="best-banner" style="display:none">
+      <span>🥇 Personal best:</span>
+      <span id="best-val" class="best-val">0</span>
+      <span id="best-label">in 1 min</span>
+    </div>
+
+    <button id="btn-launch" class="btn btn-primary btn-full btn-launch">
+      <svg viewBox="0 0 24 24" fill="currentColor" width="20" height="20">
+        <polygon points="5 3 19 12 5 21 5 3"/>
+      </svg>
+      Launch Quiz
+    </button>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════
+     SCREEN 3 — COUNTDOWN
+══════════════════════════════════════ -->
+<section id="screen-countdown" class="screen" aria-label="Countdown">
+  <div class="countdown-scene">
+    <div class="countdown-glow"></div>
+    <div class="countdown-circle" id="countdown-circle">
+      <span class="countdown-num" id="countdown-num">3</span>
+    </div>
+    <p class="countdown-label">Get ready!</p>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════
+     SCREEN 4 — QUIZ
+══════════════════════════════════════ -->
+<section id="screen-quiz" class="screen quiz-screen" aria-label="Quiz">
+
+  <!-- HUD bar -->
+  <div class="quiz-hud" aria-live="polite" aria-atomic="true">
+    <!-- Timer ring -->
+    <div class="hud-timer" aria-label="Time remaining">
+      <svg class="ring-svg" viewBox="0 0 44 44" aria-hidden="true">
+        <circle class="ring-track" cx="22" cy="22" r="18" fill="none" stroke-width="3"/>
+        <circle class="ring-fill" id="ring-fill" cx="22" cy="22" r="18" fill="none" stroke-width="3"
+          stroke-dasharray="113.097" stroke-dashoffset="0" stroke-linecap="round"
+          transform="rotate(-90 22 22)"/>
+      </svg>
+      <span class="hud-time" id="hud-time">60</span>
+    </div>
+
+    <div class="hud-badge" id="hud-badge">Explorer</div>
+
+    <div class="hud-count" aria-label="Animals seen">
+      <span class="hud-count-n" id="hud-count-n">0</span>
+      <span class="hud-count-l">seen</span>
+    </div>
+  </div>
+
+  <!-- Full-screen image arena — click anywhere to advance -->
+  <div class="quiz-arena" id="quiz-arena" role="button" tabindex="0" aria-label="Click to advance to next animal">
+    <!-- Category badge -->
+    <div class="cat-badge" id="cat-badge">Mammal</div>
+
+    <!-- Dual-buffer images for crossfade -->
+    <div class="img-stack">
+      <!-- Blurred backdrop layers -->
+      <img id="img-bg-a" class="quiz-img-bg" src="" alt="" draggable="false" aria-hidden="true">
+      <img id="img-bg-b" class="quiz-img-bg faded" src="" alt="" draggable="false" aria-hidden="true">
+      <!-- Foreground (contained) images -->
+      <img id="img-a" class="quiz-img" src="" alt="Identify this wild animal" draggable="false">
+      <img id="img-b" class="quiz-img faded" src="" alt="" draggable="false" aria-hidden="true">
+      <div class="img-loader" id="img-loader">
+        <div class="loader-icon" id="loader-icon">🦁</div>
+        <div class="loader-text">Loading...</div>
+      </div>
+    </div>
+
+    <!-- Answer reveal (Explorer mode only) -->
+    <div class="answer-pill" id="answer-pill">
+      <span id="answer-text"></span>
+    </div>
+
+    <!-- Tap hint -->
+    <div class="tap-hint" id="tap-hint" aria-hidden="true">
+      <div class="tap-ring"></div>
+      <span>tap anywhere to advance</span>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════
+     SCREEN 5 — RESULTS
+══════════════════════════════════════ -->
+<section id="screen-results" class="screen results-screen" aria-label="Session Results">
+  <canvas id="confetti-canvas" class="confetti-canvas" aria-hidden="true"></canvas>
+  <div class="results-body">
+    <div class="results-hero">
+      <div class="trophy-icon" id="trophy-icon">🏆</div>
+      <h2 class="results-title" id="results-title">Session Complete!</h2>
+      <p class="results-sub" id="results-sub">Great effort today!</p>
+    </div>
+
+    <div class="score-card">
+      <div class="score-left">
+        <span class="score-num" id="score-num">0</span>
+        <div>
+          <span class="score-unit">species</span>
+          <span class="score-unit2">identified</span>
+        </div>
+      </div>
+      <div class="score-right">
+        <span class="score-rate" id="score-rate">0/min</span>
+        <span class="score-rate-l">identification rate</span>
+      </div>
+    </div>
+
+    <div class="mini-stats">
+      <div class="mini-stat">
+        <div class="mini-icon">⚡</div>
+        <div class="mini-val" id="ms-avg">—</div>
+        <div class="mini-lbl">avg per animal</div>
+      </div>
+      <div class="mini-stat">
+        <div class="mini-icon">🥇</div>
+        <div class="mini-val" id="ms-best">0</div>
+        <div class="mini-lbl">personal best</div>
+      </div>
+      <div class="mini-stat">
+        <div class="mini-icon">⏱</div>
+        <div class="mini-val" id="ms-dur">60s</div>
+        <div class="mini-lbl">session time</div>
+      </div>
+    </div>
+
+    <!-- Category breakdown -->
+    <div class="breakdown-card">
+      <div class="breakdown-hd">Category Breakdown</div>
+      <div id="breakdown-rows"></div>
+    </div>
+
+    <!-- Improvement tips -->
+    <div class="tips-card" id="tips-card">
+      <div class="tips-hd">💡 Improvement Tips</div>
+      <div class="tips-body" id="tips-body"></div>
+    </div>
+
+    <div class="results-actions">
+      <button id="btn-to-settings" class="btn btn-secondary">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="17" height="17">
+          <circle cx="12" cy="12" r="3"/>
+          <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/>
+        </svg>
+        Settings
+      </button>
+      <button id="btn-play-again" class="btn btn-primary">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="17" height="17">
+          <polyline points="1 4 1 10 7 10"/>
+          <path d="M3.51 15a9 9 0 1 0 .49-3.68"/>
+        </svg>
+        Play Again
+      </button>
+    </div>
+  </div>
+</section>
+
+<script src="app.js"></script>
+</body>
+</html>
